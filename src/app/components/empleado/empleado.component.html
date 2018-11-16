@@ -1,0 +1,239 @@
+<h2 class="color-text">Empleados</h2>
+<br>
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+  
+    <form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <input type="hidden" id="_id"  formControlName="_id">
+          <label for="nombre" class="color-text">Nombre(s)</label>
+          <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.nombre.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.nombre.invalid && empleadoForm.controls.nombre.touched"></i>
+          <input type="text" class="form-control form-control-lg" id="nombre" formControlName="nombre"> 
+        </div>
+        <div class="form-group col-md-6">
+            <label for="apellido" class="color-text" class="color-text">Apellido(s)</label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.apellido.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.apellido.invalid && empleadoForm.controls.apellido.touched"></i>
+            <input type="text" class="form-control form-control-lg" id="apellido" formControlName="apellido">
+          </div>
+
+      </div>
+      <div class="form-group">
+          <label for="email" class="color-text" class="color-text">Email</label>
+          <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.email.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.email.invalid && empleadoForm.controls.email.touched"></i>
+          <input type="text" class="form-control form-control-lg" id="email" formControlName="email" (keyup)="validarEmail()">
+          <p class="alert alert-danger"  *ngIf="empleadoForm.controls.email.invalid && empleadoForm.controls.email.touched">Este email ya está en uso o email inválido</p>
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-4">
+              <label for="curp" class="color-text">Curp</label>
+              <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.curp.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.curp.invalid && empleadoForm.controls.curp.touched"></i>
+              <input type="text" class="form-control form-control-lg" id="curp" formControlName="curp" (keyup)="validarCurp()">
+              <p class="alert alert-danger"  *ngIf="empleadoForm.controls.curp.invalid && empleadoForm.controls.curp.touched">Esta curp ya existe o es incorrecta</p>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="rfc" class="color-text">RFC</label>
+                <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.rfc.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.rfc.invalid && empleadoForm.controls.rfc.touched"></i>
+                <input type="text" class="form-control form-control-lg" id="rfc" formControlName="rfc" (keyup)="validarRfc()">
+                <p class="alert alert-danger"  *ngIf="empleadoForm.controls.rfc.invalid && empleadoForm.controls.rfc.touched">Este rfc ya existe o es incorrecto</p>
+              </div>
+              <div class="form-group col-md-4">
+                  <label for="nss" class="color-text">NSS</label>
+                  <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.nss.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.nss.invalid && empleadoForm.controls.nss.touched"></i>
+                  <input type="text" class="form-control form-control-lg" id="nss" formControlName="nss" (keyup)="validarNss()">
+                  <p class="alert alert-danger"  *ngIf="empleadoForm.controls.nss.invalid && empleadoForm.controls.nss.touched">Este nss ya está en uso</p>
+                </div>
+             
+
+      </div>
+    
+      <div class="form-row">
+          <div class="form-group col-md-4">
+          <label for="curp" class="color-text">Salario</label>
+          <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.salario.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.salario.invalid && empleadoForm.controls.salario.touched"></i>
+          <input type="number" class="form-control form-control-lg" id="salario" formControlName="salario">
+        </div>
+        
+      
+
+        <div class="form-group col-md-4">
+            <label for="fecha_nac" class="color-text">Fecha de nacimiento</label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.fecha_nac.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.fecha_nac.invalid && empleadoForm.controls.fecha_nac.touched"></i>
+            <input type="date" class="form-control form-control-lg" id="fecha_nac" formControlName="fecha_nac">
+          </div>
+          <div class="form-group col-md-4">
+              <label for="fecha_contratacion" class="color-text">Fecha de contratación</label>
+              <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.fecha_contratacion.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.fecha_contratacion.invalid && empleadoForm.controls.fecha_contratacion.touched"></i>
+              <input type="date" class="form-control form-control-lg" id="fecha_contratacion" formControlName="fecha_contratacion">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+                <label for="sucursal" class="color-text">Sucursal</label>
+                <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.sucursal.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.sucursal.invalid && empleadoForm.controls.sucursal.touched"></i>
+              
+                <select class="form-control form-control-lg" formControlName="sucursal">
+                    <option  *ngFor="let sucursal of sucursalService.sucursales">{{sucursal.clave}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="puesto" class="color-text">Puesto</label>
+                <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.puesto.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.puesto.invalid && empleadoForm.controls.puesto.touched"></i>
+                <select class="form-control form-control-lg" formControlName="puesto">
+                    <option  *ngFor="let pues of puestos">{{pues.nombre}}</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+          <div class="form-group">
+            <label for="calle" class="color-text">Calle</label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.calle.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.calle.invalid && empleadoForm.controls.calle.touched"></i>
+            <input type="text" class="form-control form-control-lg" id="calle" formControlName="calle">
+        
+          </div>
+          </div>
+          
+          <div class="col">
+            <div class="form-group">
+              <label for="num_ext" class="color-text">Número Ext.</label>
+              <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.num_ext.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.num_ext.invalid && empleadoForm.controls.num_ext.touched"></i>
+             
+              <input type="text" class="form-control form-control-lg" id="num_ext" formControlName="num_ext">
+           
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="cp" class="color-text">Código Postal</label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.cp.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.cp.invalid && empleadoForm.controls.cp.touched"></i>
+           
+        <div class="input-group mb-3">
+            
+            <input type="text" class="form-control form-control-lg" id="cp"  formControlName="cp">
+           
+            <div class="input-group-append">
+                <button type="button"  class="btn btn-outline-primary"><i class="material-icons">
+                    search
+                    </i></button>
+                </div>
+
+               
+
+               
+          </div>
+        
+        </div>
+          <div class="form-group col-md-6">
+            <label for="colonia" class="color-text">Colonia </label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.colonia.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.colonia.invalid && empleadoForm.controls.colonia.touched"></i>
+              <select class="form-control form-control-lg" formControlName="colonia">
+                  <option>Del parque</option>
+              </select>
+       
+          </div>
+        </div>
+        <div class="form-row">
+            
+        <div class="form-group col-md-6">
+            <label for="telefono" class="color-text">Teléfono</label>
+            <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.telefono.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.telefono.invalid && empleadoForm.controls.telefono.touched"></i>
+            <input type="tel"  class="form-control form-control-lg" id="telefono" formControlName="telefono">
+       
+          </div>
+          
+          <div class="form-group col-md-6">
+              <label class="color-text">Status</label>
+              <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.status.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.status.invalid && empleadoForm.controls.status.touched"></i>
+                <select class="form-control form-control-lg" formControlName="status">
+                    <option>Activo</option>
+                    <option>Inactivo</option>
+                </select>
+
+            </div>
+            </div>
+
+            <br>
+            <div class="form-group">
+            <button [disabled]="!empleadoForm.valid" type="submit" class="btn  btn-outline-primary btn-lg">Guardar</button>
+            <button (click)="funciones.resetForm(empleadoForm)" class="btn btn-outline-warning btn-lg pull-right">Limpiar</button>
+            <div class="alert alert-success" *ngIf="mensaje.mensaje" role="alert">
+                    {{mensaje.mensaje}}
+                    </div>
+          </div>
+          <br>
+          <pre>Valor del formulario:{{empleadoForm.value | json}}</pre>
+          <pre>status del formulario:{{empleadoForm.status | json}}</pre>
+       
+    </form>
+ 
+  </div>
+
+
+  <div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nombre(s)</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Email</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Salario</th>
+            <th scope="col">Puesto</th>
+            <th scope="col">Sucursal</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleadoService.empleados">
+            <td [ngClass]="{'color-activo': empleado.status == 'Activo', 'color-inactivo': empleado.status=='Inactivo'}">{{empleado.nombre}} {{empleado.apellido}}</td>
+            <td>{{empleado.direccion.calle}} {{empleado.direccion.num_ext}}, {{empleado.direccion.colonia}} ,{{empleado.direccion.cp}} </td>
+            <td>{{empleado.email}}</td>
+            <td>{{empleado.telefono}}</td>
+            <td>{{empleado.edad | edad }}</td>
+            <td>{{empleado.salario }}</td>
+            <td>{{empleado.puesto}}</td>
+            <td>{{empleado.sucursal }}</td>
+            
+            <td><button (click)="editEmpleado(empleado)" class="btn btn-info"><i class="material-icons">edit</i></button></td>
+          </tr>
+          
+        
+        </tbody>
+      </table>
+
+        
+
+
+    </div>
+
+    
+
+</div>
+
+</div>

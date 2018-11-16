@@ -1,0 +1,119 @@
+<div id="container" class="container" *ngIf="cotizacion && servicios && cotizacion.distancia && dimensiones">
+  <div class="row div-sombreado">
+    <div class="col-sm-10 col-md-10 col-xs-10 offset-sm-1 ">
+      <h2 class="color-text alinear-texto" >Resumen Cotización</h2>
+      <br>
+      <br>
+      <form class=" justify-content-center" #form="ngForm" (ngSubmit)="onSubmit()" >
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label  class="color-text" for="cp_origen">Origen</label>
+            <input type="text" class="form-control form-control-lg" id="cp_origen" name="cp_origen" [(ngModel)]="cotizacion.cp_origen" required disabled>
+          </div>
+          <div class="form-group col-md-6">
+              <label class="color-text" for="cp_destino">Destino</label>
+              <input type="text" class="form-control form-control-lg" id="cp_destino" name="cp_destino" [(ngModel)]="cotizacion.cp_destino" required disabled>
+            </div>
+            
+        </div>
+        <hr>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col-md col-xs">
+
+                <div class="form-group">
+                  <h5 class="color-text">Tipo de envío</h5>
+                </div>
+                <select class="form-control form-control-lg" name="tipo_envio" id="tipo_envio" [(ngModel)]="cotizacion.tipo_envio" (change)="cotizar()" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Express">Express</option>
+                </select>
+        
+            </div>
+
+            <div class="col-sm col-md col-xs">
+              <div class="form-group">
+                <h5 class="color-text">Total Dimensiones</h5>
+              </div>
+              <div class="form-group">
+                <label class="color-text " >{{cotizacion.paquetes}} paquete(s), {{dimensiones.peso}} Kg, {{dimensiones.volumen}} m3</label>
+              
+              </div>
+              <div class="form-group">
+                  <label class="color-text ">{{cotizacion.sobres}} sobre(s)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <br>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm col-md col-xs">
+            <div class="form-group">
+              <h5 class="color-text">Servicios adicionales</h5>
+            </div>
+            <div  *ngIf="servicios" >
+            <div class="form-check" *ngFor="let servicio of servicios; let i=index;">
+                <input class="form-check-input" type="checkbox" [value]="servicio" [id]="servicio._id" [name]="servicio.nombre" (change)=clickCheckBox($event) [disabled]="habilitar_servicios">
+                <label class="form-check-label" for="defaultCheck1">
+                  {{servicio.nombre}}
+                </label>
+              </div>
+          </div>
+                <div class="form-group row">
+                  <label class="color-text col-sm-6 col-form-label" for="valor_seguro">Valor del envío</label>
+                  <div class="col-sm-10">
+                  <input type="text" class="form-control-lg form-control" name="valor_seguro" id="valor_seguro" [(ngModel)]="cotizacion.valor_seguro" [disabled]="habilitar_seguro">
+                  <br>
+                  <button type="button" class="btn btn-success" [disabled]="habilitar_seguro" (click)="obtenerSeguro()">Definir valor envío</button>
+                  </div>
+                 
+                </div>
+          </div> 
+              <div class="col-sm col-md col-xs">
+
+              </div>
+        </div>
+      </div>
+      <hr>
+      <br>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm col-md col-xs">
+              <div class="form-group row">
+                <label class="color-text col-sm-2 col-form-label"  for="sub_total">Subtotal</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control-lg form-control" name="subtotal" [(ngModel)]="resumen.subtotal" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="color-text col-sm-2 col-form-label" for="iva">Iva</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control-lg form-control" name="iva"  [(ngModel)]="resumen.iva" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="color-text col-sm-2 col-form-label"  for="total"  >Total</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control-lg form-control" name="total"[(ngModel)]="resumen.total" disabled>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm col-md col-xs" >
+              <div class="text-center" style="padding-top: 15%;">
+            <button type="submit" class="btn btn-outline-primary btn-block btn-lg " [disabled]="habilitar_servicios">Continuar</button>
+            </div>
+            <br>
+            
+            </div>
+        </div>
+      </div>
+      <pre>Valor del formulario:{{form.value | json}}</pre>
+      <pre>status del formulario:{{form.status | json}}</pre>
+      </form>
+    </div>
+  </div>
+</div>

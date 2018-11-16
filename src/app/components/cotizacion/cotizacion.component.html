@@ -1,0 +1,148 @@
+<div class="container" id="container">
+<div class="row div-sombreado">
+  <div class="col-xs-10 col-sm-10 col-md-10 offset-sm-1">
+    <h2 class="color-text alinear-texto">Cotización</h2>
+    <br>
+    <br>
+    <form class="justify-content-center" #cotizacionForm="ngForm"  (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="paquetes" class="color-text">Cantidad de paquetes</label>
+
+        <input type="number" class="form-control form-control-lg" id="paquetes"  [(ngModel)]="cotizacion.paquetes" name="paquetes" required></div>
+        <br>
+        <div class="form-group">
+        <h5 class="color-text">¿Sus paquetes tienen las mismas dimensiones?</h5>
+          <select class="form-control form-control-lg" name="opcion" [(ngModel)]="cotizacion.opcion" required >
+            <option  value="Si">Sí</option>
+            <option Value="No">No</option>
+          </select>
+          <br>
+      </div>
+   <br>
+    <div class="form-group">
+      <label for="sobres" class="color-text">Cantidad de sobres</label>
+      <input type="number" class="form-control form-control-lg" id="sobres" [(ngModel)]="cotizacion.sobres" name="sobres" required  >
+    </div>
+
+    <div *ngIf="cotizacion.paquetes>1 && cotizacion.opcion=='No'; else menospaquetes" >
+       
+        <h2 class="color-text" >Dimensiones</h2>
+        <div class="row" *ngFor="let cantidad of counter(cotizacion.paquetes);let i = index">
+         <div class="col" >
+           <br>
+        <h4 class="color-text">Paquete {{i|sumar:1}}</h4>
+        </div>
+        <br>
+        <div class="col">
+        <label for="peso" class="color-text">Peso</label>
+        <input type="number" class="form-control" id="peso" ngModel name="peso{{i|sumar:1}}" required >
+        </div>
+        <div class="col">
+        <label for="largo" class="color-text">Largo</label>
+        <input type="number" class="form-control" id="largo" ngModel name="largo{{i|sumar:1}}" required >
+        </div>
+        <div class="col">
+        <label for="ancho" class="color-text">Ancho</label>
+        <input type="number" class="form-control" id="ancho" ngModel name="ancho{{i|sumar:1}}" required >
+        </div>
+        <div class="col">
+        <label for="alto" class="color-text">Alto</label>
+        <input type="number" class="form-control" id="alto" ngModel name="alto{{i|sumar:1}}" required >
+        </div>
+      </div>
+    
+    </div>
+    <ng-template #menospaquetes>
+      <div class="row" >
+        <div class="col" >
+            <br>
+       <h4 class="color-text">Dimensiones</h4>
+         </div>
+         <br>
+         <div class="col">
+         <label for="peso" class="color-text">Peso</label>
+         <input type="number" class="form-control" id="peso" ngModel name="peso" required >
+         </div>
+         <div class="col" class="color-text">
+         <label for="largo" class="color-text">Largo</label>
+         <input type="number" class="form-control" id="largo" ngModel name="largo" required >
+         </div>
+         <div class="col">
+         <label for="ancho" class="color-text">Ancho</label>
+         <input type="number" class="form-control" id="ancho" ngModel name="ancho" required >
+         </div>
+         <div class="col">
+         <label for="alto" class="color-text">Alto</label>
+         <input type="number" class="form-control" id="alto" ngModel name="alto" required >
+         </div>
+        </div>
+  </ng-template>
+
+    <br>
+    <br>
+
+    <div>
+      <h2 class="color-text">Códigos Postales</h2>
+      <br>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="cp_origen" class="color-text">Origen</label>
+            <div class="input-group mb-3">
+            <input type="number" class="form-control form-control-lg" id="cp_origen" [(ngModel)]="cotizacion.cp_origen" name="cp_origen" #cp_origen (keyup)=" obtenerColoniasOrigen(cp_origen)" required >
+            <div class="input-group-append">
+            <button type="button" class="btn btn-outline-primary"><i class="material-icons">
+                search
+                </i></button>
+            </div>
+          </div>
+          </div>
+          </div>
+          <div class="col">
+           
+            <div class="form-group">
+              <label for="colonia_origen" class="color-text">Colonia origen</label>
+              <select class="form-control form-control-lg" [(ngModel)]="cotizacion.colonia_origen" name="colonia_origen" required >
+                <option *ngFor="let colonia of cpService.info_cpOrigen.colonias" [value]="colonia">{{colonia}}</option>
+              </select>
+          </div>
+          </div>
+        
+
+      </div>
+      <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="cp_destino" class="color-text">Destino</label>
+              <div class="input-group mb-3">
+              <input type="number" class="form-control form-control-lg" id="cp_destino" [(ngModel)]="cotizacion.cp_destino" name="cp_destino"  #cp_destino (keyup)=" obtenerColoniasDestino(cp_destino)" required >
+              <div class="input-group-append">
+              <button type="button"  class="btn btn-outline-primary"><i class="material-icons">
+                  search
+                  </i></button>
+              </div>
+            </div>
+            </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="colonia_destino" class="color-text">Colonia destino</label>
+                <select class="form-control form-control-lg" [(ngModel)]="cotizacion.colonia_destino" name="colonia_destino" required >
+                    <option *ngFor="let colonia of cpService.info_cpDestino.colonias"  [value]="colonia" >{{colonia}}</option>
+                </select>
+            </div>
+            </div>
+        </div>
+
+      
+
+
+    </div>
+    <br>
+    <br>
+    <button [disabled]="!cotizacionForm.valid" type="submit" class="btn btn-outline-primary btn-lg btn-block" >Cotizar</button>
+    <br>
+  </form>
+  </div>
+</div>
+</div>

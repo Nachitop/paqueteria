@@ -1,0 +1,157 @@
+<h2 class="color-text">Sucursales</h2>
+<div class="row"> 
+    <div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+    
+      <br>
+      <form [formGroup]="sucursalForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+           
+              <div class="form-group  col-md-4">
+                <input type="hidden" id="_id" formControlName="_id">
+                  <label class="color-text" for="nombre">Clave</label>
+                  <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.clave.valid" style="color: green;"></i>
+                  <i class="fa fa-exclamation-circle uncheck" style="color:red; "*ngIf="(sucursalForm.controls.clave.invalid &&  sucursalForm.controls.clave.touched)"></i>
+                 
+                  <input type="text" class="form-control" id="clave" formControlName="clave" (keyup)="validarSucursal()">
+                  <p class="alert alert-danger" *ngIf="sucursalForm.controls.clave.invalid &&  sucursalForm.controls.clave.touched">Esta clave ya existe o clave incorrecta (escriba en Mayúsculas 3 letras, seguido de 2 dígitos)</p>
+              </div>
+            
+          
+              <div class="form-group  col-md-8">
+                <label for="nombre" class="color-text">Nombre de la sucursal</label>
+                <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.nombre.valid" style="color: green;"></i>
+                <i class="fa fa-exclamation-circle uncheck" style="color:red; "*ngIf="sucursalForm.controls.nombre.invalid && sucursalForm.controls.nombre.touched"></i>
+                <input type="text" class="form-control" id="nombre" formControlName="nombre">
+               <!-- <p class="alert alert-danger" *ngIf="sucursalForm.controls.nombre.invalid && sucursalForm.controls.nombre.touched">Campo nombre obligatorio</p>!-->
+              </div>
+           
+            </div>
+            <div class="row">
+              <div class="col">
+            <div class="form-group">
+              <label for="calle" class="color-text">Calle</label>
+              <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.calle.valid" style="color: green;"></i>
+              <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.calle.invalid && sucursalForm.controls.calle.touched"></i>
+              <input type="text" class="form-control" id="calle" formControlName="calle">
+             <!-- <p class="alert alert-danger" *ngIf="sucursalForm.controls.calle.invalid && sucursalForm.controls.calle.touched">Campo calle obligatorio</p>!-->
+            </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="num_ext" class="color-text">Número Ext.</label>
+                <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.num_ext.valid" style="color: green;"></i>
+                <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.num_ext.invalid && sucursalForm.controls.num_ext.touched"></i>
+                <input type="text" class="form-control" id="num_ext" formControlName="num_ext">
+               <!-- <p class="alert alert-danger" *ngIf="sucursalForm.controls.numero_ext.invalid && sucursalForm.controls.numero_ext.touched">Campo número exterior obligatorio</p>!-->
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="cp" class="color-text">Código Postal</label>
+              <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.cp.valid" style="color: green;"></i>
+              <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.cp.invalid && sucursalForm.controls.cp.touched"></i>
+          <div class="input-group mb-3">
+              
+              <input type="text" pattern="[0-9]{5}" class="form-control form-control-lg" id="cp" formControlName="cp">
+             
+             
+              <div class="input-group-append">
+                  <button type="button"  class="btn btn-outline-primary"><i class="material-icons">
+                      search
+                      </i></button>
+                  </div>
+                 
+            </div>
+            <p class="alert alert-danger" *ngIf="sucursalForm.controls.cp.invalid && sucursalForm.controls.cp.touched">5 dígitos</p>
+            <!--<p class="alert alert-danger" *ngIf="sucursalForm.controls.cp.invalid && sucursalForm.controls.cp.touched">Campo código postal obligatorio</p>!-->
+          </div>
+            <div class="form-group col-md-6">
+              <label for="colonia" class="color-text">Colonia </label>
+              <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.colonia.valid" style="color: green;"></i>
+                <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.colonia.invalid && sucursalForm.controls.colonia.touched"></i>
+                <select class="form-control form-control-lg"  formControlName="colonia">
+                    <option >Del parque</option>
+                </select>
+             <!-- <input type="text" class="form-control" id="colonia" formControlName="colonia">!-->
+              <!--<p class="alert alert-danger" *ngIf="sucursalForm.controls.colonia.invalid && sucursalForm.controls.colonia.touched">Campo colonia obligatorio</p>!-->
+            </div>
+          </div>
+          <div class="form-row">
+          <div class="form-group col-md-4">
+              <label for="telefono" class="color-text">Teléfono</label>
+              <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.telefono.valid" style="color: green;"></i>
+            <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.telefono.invalid && sucursalForm.controls.telefono.touched"></i>
+              <input type="tel"  class="form-control" id="telefono" formControlName="telefono">
+             <!-- <p class="alert alert-danger" *ngIf="sucursalForm.controls.encargado.invalid && sucursalForm.controls.encargado.touched">Campo encargado obligatorio</p>!-->
+            </div>
+            <div class="form-group col-md-8">
+                <label for="encargado" class="color-text">Encargado</label><span class="obligatorio" *ngIf="sucursalForm.controls.encargado.invalid && sucursalForm.controls.encargado.touched">*</span>
+                <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.encargado.valid" style="color: green;"></i>
+              <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.encargado.invalid && sucursalForm.controls.encargado.touched"></i>
+                <input type="text" class="form-control" id="encargado" formControlName="encargado">
+               <!-- <p class="alert alert-danger" *ngIf="sucursalForm.controls.encargado.invalid && sucursalForm.controls.encargado.touched">Campo encargado obligatorio</p>!-->
+              </div>
+            </div>
+            <br>
+            <div class="form-group">
+              <label class="color-text">Status</label>
+              <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.status.valid" style="color: green;"></i>
+            <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.status.invalid && sucursalForm.controls.status.touched"></i>
+                <select class="form-control form-control-lg"  formControlName="status">
+                    <option>Activa</option>
+                    <option>Inactiva</option>
+                </select>
+
+            </div>
+            <br>
+            <br>
+            <div class="form-group">
+            <button [disabled]="!sucursalForm.valid" type="submit" class="btn btn-outline-primary btn-lg">Guardar</button>
+            <button type="button"(click)="funciones.resetForm(sucursalForm)" class="btn btn-lg  btn-outline-warning pull-right">Limpiar</button>
+          </div>
+          <br>
+          <div class="alert alert-success" *ngIf="mensaje.mensaje" role="alert">
+          {{mensaje.mensaje}}
+          </div>
+           <!-- <p class="alert alert-danger" *ngIf="!sucursalForm.valid">Por favor complete los campos</p>!-->
+      </form>
+    
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+        <br>
+        
+        <div class="table-responsive">   
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Clave</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Encargado</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sucursal of sucursalService.sucursales" >
+            <th scope="row" [ngClass]="{'color-activo': sucursal.status == 'Activa', 'color-inactivo': sucursal.status=='Inactiva'}">{{sucursal.clave}}</th>
+            <td>{{sucursal.nombre}}</td>
+            <td>{{sucursal.direccion.calle}} {{sucursal.direccion.num_ext}}, {{sucursal.direccion.colonia}}, {{sucursal.direccion.cp}} </td>
+            <td>{{sucursal.telefono}}</td>
+            <td>{{sucursal.encargado}}</td>
+            <td><button (click)="editSucursal(sucursal)" class="btn btn-info"><i class="material-icons">edit</i></button></td>
+          </tr>
+          
+        
+        </tbody>
+      </table>
+      </div>
+</div>
+
+
+
+    
+</div>
+

@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="row div-sombreado">
+    <div class="col-sm-10 col-md-10 col-xs-10 offset-sm-1">
+      <h2 class="color-text alinear-texto">Información de Envío</h2>
+      <br>
+      <br>
+      <form class="justify-content-center" [formGroup]="formInformacionEnvio" (ngSubmit)="onSubmit()">
+        <h4 class="color-text">Quién envía</h4>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label class="color-text" for="nombre_r">Nombre</label>
+            <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.nombre_r.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.nombre_r.invalid &&
+            formInformacionEnvio.controls.nombre_r.touched"></i>
+            <input type="text" class="form-control form-control-lg" id="nombre_r" formControlName="nombre_r">
+            <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.nombre_r.invalid &&
+            formInformacionEnvio.controls.nombre_r.touched">El campo nombre es obligatorio, máximo 35 carácteres</p>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="color-text" for="apellido_r">Apellido</label>
+            <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.apellido_r.valid"></i>
+            <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.apellido_r.invalid &&
+            formInformacionEnvio.controls.apellido_r.touched"></i>
+            <input type="text" class="form-control form-control-lg" id="apellido_r" formControlName="apellido_r">
+            <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.apellido_r.invalid &&
+            formInformacionEnvio.controls.apellido_r.touched">El campo apellido NO es obligatorio, máximo 35 carácteres</p>
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label class="color-text" for="email_r">E-mail</label>
+              <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.email_r.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.email_r.invalid &&
+               formInformacionEnvio.controls.email_r.touched"></i>
+              <input type="text" class="form-control form-control-lg" id="email_r" formControlName="email_r">
+              <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.email_r.invalid &&
+            formInformacionEnvio.controls.email_r.touched">Email inválido, campo No obligatorio</p>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="color-text" for="telefono_r">Teléfono</label>
+              <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.telefono_r.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.telefono_r.invalid &&
+               formInformacionEnvio.controls.telefono_r.touched"></i>
+              <input type="text" class="form-control form-control-lg" id="telefono_r" formControlName="telefono_r">
+              <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.telefono_r.invalid &&
+              formInformacionEnvio.controls.telefono_r.touched">Máximo 10 caracteres númericos, campo obligatorio</p>
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-10">
+                <label class="color-text" for="calle_r">Calle</label>
+                <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.calle_r.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.calle_r.invalid &&
+                formInformacionEnvio.controls.calle_r.touched"></i>
+                <input type="text" class="form-control form-control-lg" id="calle_r" formControlName="calle_r">
+                <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.calle_r.invalid &&
+                formInformacionEnvio.controls.calle_r.touched">Máximo 35 caracteres, campo obligatorio</p>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="color-text" for="numE_r">Núm. Exterior</label>
+                <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.numE_r.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.numE_r.invalid &&
+                formInformacionEnvio.controls.numE_r.touched"></i>
+                <input type="text" class="form-control form-control-lg" id="numE_r" formControlName="numE_r">
+                <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.numE_r.invalid &&
+                 formInformacionEnvio.controls.numE_r.touched">Máximo 7 caracteres, campo obligatorio</p>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-10">
+                <label class="color-text" for="edificio_r">Edificio</label>
+                <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.edificio_r.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.edificio_r.invalid &&
+                formInformacionEnvio.controls.edificio_r.touched"></i>
+                <input type="text" class="form-control form-control-lg" id="edificio_r" formControlName="edificio_r">
+                <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.edificio_r.invalid &&
+                formInformacionEnvio.controls.edificio_r.touched">Máximo 35 caracteres, campo NO obligatorio</p>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="color-text" for="numI_r">Núm. Interior</label>
+                <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.numI_r.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.numI_r.invalid &&
+                formInformacionEnvio.controls.numI_r.touched"></i>
+                <input type="text" class="form-control form-control-lg" id="numI_r" formControlName="numI_r">
+                <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.numI_r.invalid &&
+                 formInformacionEnvio.controls.numI_r.touched">Máximo 7 caracteres, campo NO obligatorio</p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="color-text" for="referenciasCercanas_r">Referencias cercanas</label>
+              <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.referenciasCercanas_r.valid"></i>
+              <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.referenciasCercanas_r.invalid &&
+              formInformacionEnvio.controls.referenciasCercanas_r.touched"></i>
+              <input type="text" class="form-control form-control-lg" id="referenciasCercanas_r" formControlName="referenciasCercanas_r">
+              <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.referenciasCercanas_r.invalid &&
+                 formInformacionEnvio.controls.referenciasCercanas_r.touched">Máximo 50 caracteres, campo NO obligatorio</p>
+            </div>
+            <hr>
+            <h4 class="color-text">Quién recibe</h4>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label class="color-text" for="nombre_d">Nombre</label>
+                  <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.nombre_d.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.nombre_d.invalid &&
+                  formInformacionEnvio.controls.nombre_d.touched"></i>
+                  <input type="text" class="form-control form-control-lg" id="nombre_d" formControlName="nombre_d">
+                  <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.nombre_d.invalid &&
+                  formInformacionEnvio.controls.nombre_d.touched">El campo nombre es obligatorio, máximo 35 carácteres</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="color-text" for="apellido_d">Apellido</label>
+                  <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.apellido_d.valid"></i>
+                  <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.apellido_d.invalid &&
+                  formInformacionEnvio.controls.apellido_d.touched"></i>
+                  <input type="text" class="form-control form-control-lg" id="apellido_d" formControlName="apellido_d">
+                  <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.apellido_d.invalid &&
+                  formInformacionEnvio.controls.apellido_d.touched">El campo apellido NO es obligatorio, máximo 35 carácteres</p>
+                </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="color-text" for="email_d">E-mail</label>
+                    <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.email_d.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.email_d.invalid &&
+                     formInformacionEnvio.controls.email_d.touched"></i>
+                    <input type="text" class="form-control form-control-lg" id="email_d" formControlName="email_d">
+                    <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.email_d.invalid &&
+                  formInformacionEnvio.controls.email_d.touched">Email inválido, campo No obligatorio</p>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="color-text" for="telefono_d">Teléfono</label>
+                    <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.telefono_d.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.telefono_d.invalid &&
+                     formInformacionEnvio.controls.telefono_d.touched"></i>
+                    <input type="text" class="form-control form-control-lg" id="telefono_d" formControlName="telefono_d">
+                    <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.telefono_d.invalid &&
+                    formInformacionEnvio.controls.telefono_d.touched">Máximo 10 caracteres númericos, campo obligatorio</p>
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                      <label class="color-text" for="calle_d">Calle</label>
+                      <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.calle_d.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.calle_d.invalid &&
+                      formInformacionEnvio.controls.calle_d.touched"></i>
+                      <input type="text" class="form-control form-control-lg" id="calle_d" formControlName="calle_d">
+                      <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.calle_d.invalid &&
+                      formInformacionEnvio.controls.calle_d.touched">Máximo 35 caracteres, campo obligatorio</p>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label class="color-text" for="numE_d">Núm. Exterior</label>
+                      <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.numE_d.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.numE_d.invalid &&
+                      formInformacionEnvio.controls.numE_d.touched"></i>
+                      <input type="text" class="form-control form-control-lg" id="numE_d" formControlName="numE_d">
+                      <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.numE_d.invalid &&
+                       formInformacionEnvio.controls.numE_d.touched">Máximo 7 caracteres, campo obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-10">
+                      <label class="color-text" for="edificio_d">Edificio</label>
+                      <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.edificio_d.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.edificio_d.invalid &&
+                      formInformacionEnvio.controls.edificio_d.touched"></i>
+                      <input type="text" class="form-control form-control-lg" id="edificio_d" formControlName="edificio_d">
+                      <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.edificio_d.invalid &&
+                      formInformacionEnvio.controls.edificio_d.touched">Máximo 35 caracteres, campo NO obligatorio</p>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label class="color-text" for="numI_d">Núm. Interior</label>
+                      <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.numI_d.valid"></i>
+                      <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.numI_d.invalid &&
+                      formInformacionEnvio.controls.numI_d.touched"></i>
+                      <input type="text" class="form-control form-control-lg" id="numI_d" formControlName="numI_d">
+                      <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.numI_d.invalid &&
+                       formInformacionEnvio.controls.numI_d.touched">Máximo 7 caracteres, campo NO obligatorio</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="color-text" for="referenciasCercanas_d">Referencias cercanas</label>
+                    <i class="fa fa-check-circle check" *ngIf="formInformacionEnvio.controls.referenciasCercanas_d.valid"></i>
+                    <i class="fa fa-exclamation-circle uncheck" *ngIf="formInformacionEnvio.controls.referenciasCercanas_d.invalid &&
+                    formInformacionEnvio.controls.referenciasCercanas_d.touched"></i>
+                    <input type="text" class="form-control form-control-lg" id="referenciasCercanas_d" formControlName="referenciasCercanas_d">
+                    <p class="alert alert-danger" *ngIf="formInformacionEnvio.controls.referenciasCercanas_d.invalid &&
+                       formInformacionEnvio.controls.referenciasCercanas_d.touched">Máximo 50 caracteres, campo NO obligatorio</p>
+                  </div>
+                  <br>
+                  <br>
+            <button type="submit" class="btn btn-outline-primary btn-block">Continuar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    margin-top:80px;
+}
+.obligatorio{
+    color: red;
+  
+    
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: 20px;
+   
+ }
+
+ .check{
+    color: #43a948;
+ }
+ .uncheck{
+    color: #a9444a;
+ }
+
+ .color-inactivo{
+    color: #E91908
+ }
+
+ .color-activo{
+     color:#59B60D
+ }
+
+ .color-reparacion{
+    color:#DED700;
+}
+
+ .padding{
+     padding-left:10px;
+ }
+
+ .color-me{
+    color: white;
+}
+
+.color-text{
+color:#346EA8;
+}
+
+.div-sombreado{
+    border-style: solid;
+    border-width: 5px;
+    border-color: #346EA8;
+    box-shadow: 0 4px 8px rgb(0,0,0.2),0 6px 20px 0 rgb(0,0,0.19);
+}
+
+.alinear-texto{
+    text-align: center;
+}
+
+.user-login{
+    max-width: 200px;
+    height: 200px;
+    background-image: url("./../src/assets/user-login.png");
+    background-size:100% auto;
+    margin: auto;
+  
+    background-repeat: no-repeat;
+    
+}

@@ -1,0 +1,157 @@
+<h2 class="color-text">Tarifas</h2>
+<br>
+<div class="row">
+<div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+  <form [formGroup]="tarifaForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <input type="hidden" id="_id"  formControlName="_id">
+      <label for="tipo_paquete" class="color-text">Tipo de paquete</label>
+      <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.tipo_paquete.valid"></i>
+      <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.tipo_paquete.invalid && tarifaForm.controls.tipo_paquete.touched"></i>
+      <select type="text" class="form-control form-control-lg" id="tipo_paquete" formControlName="tipo_paquete">
+        <option *ngFor="let paquete of tipoPaquetes">{{paquete.paquete}}</option>
+      </select>
+    </div>
+    <br>
+    <h5 class="color-text">Dimensiones</h5>
+    <br>
+   
+       <h6 class="color-text">Peso en Kg.</h6>
+        <div class="form-row">  
+          <div class="form-group col-md-6">
+           <label for="peso_min" class="color-text">Mínimo</label>
+           <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.peso_min.valid"></i>
+      <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.peso_min.invalid && tarifaForm.controls.peso_min.touched"></i>
+           <input type="number" class="form-control form-control-lg" id="peso_min" formControlName="peso_min">
+        </div>
+         <div class="form-group col-md-6">
+          <label for="peso_max" class="color-text">Máximo</label>
+          <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.peso_max.valid"></i>
+      <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.peso_max.invalid && tarifaForm.controls.peso_max.touched"></i>
+          <input type="number" class="form-control form-control-lg" id="peso_max" formControlName="peso_max">
+         </div>
+        </div>
+
+           <h6 class="color-text">Volumen en Cm3.</h6>
+            <div class="form-row">  
+               <div class="form-group col-md-6">
+                <label for="volumen_min" class="color-text">Mínimo</label>
+                <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.volumen_min.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.volumen_min.invalid && tarifaForm.controls.volumen_min.touched"></i>
+                <input type="number" class="form-control form-control-lg" id="volumen_min" formControlName="volumen_min">
+              </div>
+
+          <div class="form-group col-md-6">
+            <label for="volumen_max" class="color-text">Máximo</label>
+            <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.volumen_max.valid"></i>
+                <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.volumen_max.invalid && tarifaForm.controls.volumen_max.touched"></i>
+            <input type="number" class="form-control form-control-lg" id="volumen_max" formControlName="volumen_max">
+          </div>
+        </div>
+
+       <h6 class="color-text">Distancia en Mts.</h6>
+        <div class="form-row">  
+        <div class="form-group col-md-6">
+          <label for="distancia_min" class="color-text">Mínima</label>
+          <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.distancia_min.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.distancia_min.invalid && tarifaForm.controls.distancia_min.touched"></i>
+          <input type="number" class="form-control form-control-lg" id="distancia_min" formControlName="distancia_min">
+        </div>
+  
+        <div class="form-group col-md-6">
+           <label for="distancia_max" class="color-text">Máxima</label>
+           <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.distancia_max.valid"></i>
+           <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.distancia_max.invalid && tarifaForm.controls.distancia_max.touched"></i>
+           <input type="number" class="form-control form-control-lg" id="distancia_max" formControlName="distancia_max">
+       </div>
+        </div>
+
+      <br>
+
+      <h6 class="color-text">Precio</h6>
+      <div class="form-row">  
+      <div class="form-group col-md-4">
+        <label for="normal" class="color-text">Normal</label>
+        <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.precio_normal.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.precio_normal.invalid && tarifaForm.controls.precio_normal.touched"></i>
+        <input type="number" class="form-control form-control-lg" id="normal" formControlName="precio_normal">
+      </div>
+
+      <div class="form-group col-md-4">
+         <label for="express" class="color-text">Express</label>
+         <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.precio_express.valid"></i>
+         <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.precio_express.invalid && tarifaForm.controls.precio_express.touched"></i>
+         <input type="number" class="form-control form-control-lg" id="express" formControlName="precio_express">
+     </div>
+
+     <div class="form-group col-md-4">
+        <label class="color-text">Status</label>
+        <i class="fa fa-check-circle check" *ngIf="tarifaForm.controls.status.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="tarifaForm.controls.status.invalid && tarifaForm.controls.status.touched"></i>
+          <select class="form-control form-control-lg" formControlName="status">
+              <option>Activa</option>
+              <option>Inactiva</option>
+          </select>
+
+      </div>
+
+      </div>
+      <br>
+      <br>
+      <div class="form-group">
+          <button [disabled]="!tarifaForm.valid" type="submit" class="btn  btn-outline-primary btn-lg">Guardar</button>
+          <button (click)="funciones.resetForm(tarifaForm)" class="btn btn-outline-warning btn-lg pull-right">Limpiar</button>
+          <div class="alert alert-success" *ngIf="mensaje.mensaje" role="alert">
+                  {{mensaje.mensaje}}
+                  </div>
+        </div>
+  </form>
+
+</div>
+
+<div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-1 col-md-offset 2">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td rowspan="2" class="custom-row">Tipo de paquete</td>
+                <th colspan ="2" scope="col" class="headers">Peso</th>
+                <th colspan ="2" scope="col"class="headers">Volumen</th>
+                <th colspan ="2" scope="col"class="headers">Distancia</th>
+                <th colspan ="2" scope="col"class="headers">Precio</th>
+                <td rowspan ="2" scope="col" class="custom-row" >Acción</td>
+              </tr>
+              <tr>
+               
+                  <td >Mínimo</td>
+                  <td>Máximo</td>
+                  <td>Mínimo</td>
+                  <td>Máximo</td>
+                  <td>Mínimo</td>
+                  <td>Máximo</td>
+                  <td>Normal</td>
+                  <td>Express</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tarifa of tarifaService.tarifas">
+                  <td [ngClass]="{'color-activo': tarifa.status == 'Activa', 'color-inactivo': tarifa.status=='Inactiva'}">{{tarifa.tipo_paquete}}</td>
+                  <td>{{tarifa.dimensiones.peso.min}}</td>
+                  <td>{{tarifa.dimensiones.peso.max}}</td>
+                  <td>{{tarifa.dimensiones.volumen.min}}</td>
+                  <td>{{tarifa.dimensiones.volumen.max}}</td>
+                  <td>{{tarifa.dimensiones.distancia.min}}</td>
+                  <td>{{tarifa.dimensiones.distancia.max}}</td>
+                  <td>{{tarifa.precio.normal}}</td>
+                  <td>{{tarifa.precio.express}}</td>
+                  <td><button (click)="editTarifa(tarifa)" class="btn btn-info"><i class="material-icons">edit</i></button></td>
+                </tr>
+              
+            
+            </tbody>
+          </table>
+        </div>
+
+</div>
+
+</div>

@@ -1,0 +1,104 @@
+<div class="container" *ngIf="cotizacion">
+  <div class="row div-sombreado">
+    <div class="col-sm-10 col-md-10 col-xs-10 offset-sm-1">
+      <h2 class="color-text alinear-texto">Confirmación de envío</h2>
+      <br>
+      <br>
+      <form class="justify-content-center" >
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label class="color-text" for="cp_origen">Origen</label>
+            <input type="text" class="form-control form-control-lg" id="cp_origen" [value]="cotizacion.cp_origen"disabled>
+          </div>
+          <div class="form-group col-md-6">
+              <label class="color-text" for="cp_destino">Destino</label>
+              <input type="text" class="form-control form-control-lg" id="cp_destino" [value]="cotizacion.cp_destino" disabled>
+            </div>
+        </div>
+        
+            <hr>
+            <div class="form-row" >
+                <div class="form-group col-md-6" *ngIf="lugar_origen">
+                    <h5 class="color-text">Envía</h5>
+                    <br>
+                    <label class="color-text">{{cotizacion.informacionEnvio[0].nombre}} {{cotizacion.informacionEnvio[0].apellido}}</label>
+                    <br>
+                    <label class="color-text">calle {{cotizacion.informacionEnvio[0].calle}} {{cotizacion.informacionEnvio[0].numE}}, {{cotizacion.colonia_origen}}, {{lugar_origen}}</label>
+                    <label class="color-text" *ngIf="cotizacion.informacionEnvio[0].edificio">Edificio {{cotizacion.informacionEnvio[0].edificio}} {{cotizacion.informacionEnvio[0].numI}}, {{cotizacion.colonia_origen}}</label>
+                    
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="lugar_destino">
+                      <h5 class="color-text">Recibe</h5>
+                      <br>
+                      <label class="color-text">{{cotizacion.informacionEnvio[1].nombre}} {{cotizacion.informacionEnvio[1].apellido}}</label>
+                      <br>
+                      <p class="color-text">calle {{cotizacion.informacionEnvio[1].calle}} {{cotizacion.informacionEnvio[1].numE}}, {{cotizacion.colonia_destino}}, {{lugar_destino}}</p>
+                      <p class="color-text" *ngIf="cotizacion.informacionEnvio[1].edificio">Edificio {{cotizacion.informacionEnvio[1].edificio}} {{cotizacion.informacionEnvio[1].numI}}</p>
+                      
+                  </div>
+            </div>
+            <hr>
+            <div class="form-row">
+           <div class="form-group col-md-6">
+                    <h5 class="color-text">Envío</h5>
+                    <br>
+                    <p class="color-text" *ngIf="cotizacion.paquetes>0">{{cotizacion.paquetes}} paquete(s), {{dimensiones.peso}} kg, {{dimensiones.volumen}} cm3</p>
+                    <p class="color-text" *ngIf="cotizacion.sobres>0">{{cotizacion.sobres}} sobre(s)</p>
+                    
+            </div>
+            <div class="form-group col-md-6">
+                <h5 class="color-text">Servicios</h5>
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let servicio of cotizacion.servicios" [value]="servicio._id">{{servicio.nombre}}</li>
+                    
+                  </ul>
+                
+        </div>
+            </div>
+            <hr>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm col-md col-xs">
+                  <div class="form-group">
+                    <h5 class="color-text">Elija método de pago</h5>
+                  </div>
+                  <select class="form-control form-control-lg" >
+                    <option>Efectivo</option>
+                    <option>Paypal</option>
+                  </select>
+                </div>
+
+                <div class="col-sm col-md col-xs">
+                  <div class="form-group row">
+                    <label class="color-text col-sm-2 col-form-label">Subtotal</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control form-control-lg" [value]="cotizacion.resumencotizacion.subtotal" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                      <label class="color-text col-sm-2 col-form-label">Iva</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-lg" [value]="cotizacion.resumencotizacion.iva" disabled>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="color-text col-sm-2 col-form-label">Total</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control form-control-lg" [value]="cotizacion.resumencotizacion.total" disabled>
+                        </div>
+                      </div>
+                </div>
+
+              </div>
+            </div>
+            
+
+            <div id="paypal-checkout-btn"></div>
+            <br>
+            <button type="submit" class="btn btn-outline-primary btn-block btn-lg ">Confirmar</button>
+            <br>
+      </form>
+    </div>
+  </div>
+</div>

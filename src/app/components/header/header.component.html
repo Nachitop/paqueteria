@@ -1,0 +1,100 @@
+<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #346EA8">
+  <a class="navbar-brand color-me" href="#">PAQUETERÍA</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link color-me" routerLink="/">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link color-me" routerLink="cotizar">Cotizar</a>
+      </li>
+      <li class="nav-item active">
+          <a class="nav-link color-me" routerLink="rastreo">Rastrear</a>
+        </li>
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle color-me" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Consultar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Sucursales</a>
+          <a class="dropdown-item" href="#">Código postal</a>
+          
+         
+        </div>
+      </li>
+     
+      <li class="nav-item dropdown active ">
+          <a class="nav-link dropdown-toggle color-me" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">
+                  description
+                  </i> Cajas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         
+              <a class="dropdown-item" routerLink="entrega">Entrega guia</a>
+              <a class="dropdown-item" routerLink="cancelacion-guia">Cancelar guia</a>
+             
+           
+          </div>
+        </li>
+
+      <li class="nav-item dropdown active ">
+          <a class="nav-link dropdown-toggle color-me" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">
+                  create
+                  </i> Abc's
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         
+              <a class="dropdown-item" routerLink="sucursal">Sucursales</a>
+              <a class="dropdown-item" routerLink="empleado">Empleados</a>
+              <a class="dropdown-item" routerLink="tarifa">Tarifas</a>
+              <a class="dropdown-item" routerLink="vehiculo">Vehículos</a>
+              <a class="dropdown-item" routerLink="servicios">Servicios</a>
+           
+          </div>
+        </li>
+        <li class="nav-item dropdown active ">
+            <a class="nav-link dropdown-toggle color-me" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">
+                    assignment
+                    </i> Almacén
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+           
+                <a class="dropdown-item" routerLink="entrada-almacen">Entrada Almacén</a>
+                
+             
+            </div>
+          </li>
+      <!--<li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+      !-->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <button class="nav-link dropdown-toggle btn btn-primary" style="background :#346EA8" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons">
+                account_circle
+                </i>
+        </button>
+          <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="login">Iniciar Sesión</a>
+            <a class="dropdown-item" href="#">Cerrar Sesión</a>
+            <div class="dropdown-divider"></div>
+            
+
+              <div class="dropdown-divider"></div>
+              
+             
+          </div>
+     
+     <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>!-->
+    </form>
+  </div>
+</nav>

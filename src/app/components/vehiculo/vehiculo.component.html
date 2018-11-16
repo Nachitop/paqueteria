@@ -1,0 +1,102 @@
+<h2 class="color-text">Vehículos</h2>
+<br>
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4 col-sm-offset-1 col-md-offset 2">
+    <form [formGroup]="vehiculoForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input type="hidden" id="_id" formControlName="_id">
+          <label for="matricula" class="color-text">Matrícula</label>
+          <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.matricula.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="(vehiculoForm.controls.matricula.invalid && vehiculoForm.controls.matricula.touched)"></i>
+          <input type="text" class="form-control form-control-lg" id="matricula" formControlName="matricula" (keyup)="validarMatricula()">
+    
+          <p class="alert alert-danger"  *ngIf="vehiculoForm.controls.matricula.invalid && vehiculoForm.controls.matricula.touched">Esta matrícula ya existe o es incorrecta</p>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="marca" class="color-text">Marca</label>
+          <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.marca.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="vehiculoForm.controls.marca.invalid && vehiculoForm.controls.marca.touched"></i>
+          <input type="text" class="form-control form-control-lg" id="marca" formControlName="marca">
+        </div>
+      </div>
+       <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="modelo" class="color-text">Modelo</label>
+          <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.modelo.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="vehiculoForm.controls.modelo.invalid && vehiculoForm.controls.modelo.touched"></i>
+          <input type="text" class="form-control form-control-lg" id="modelo" formControlName="modelo">
+      </div>
+       
+       <div class="form-group col-md-6">
+        <label for="tipo_vehiculo" class="color-text">Tipo de vehículo</label>
+        <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.tipo_vehiculo.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="vehiculoForm.controls.tipo_vehiculo.invalid && vehiculoForm.controls.tipo_vehiculo.touched"></i>
+          <select type="text" class="form-control form-control-lg" id="tipo_vehiculo" formControlName="tipo_vehiculo">
+            <option *ngFor="let vehiculo of vehiculos">{{vehiculo.tipo_vehiculo}}</option>
+          </select>
+      </div>
+    </div> 
+      <div class="form-row">
+        
+        <div class="form-group col-md-6">
+            <label for="sucursal" class="color-text">Sucursal</label>
+            <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.sucursal.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="vehiculoForm.controls.sucursal.invalid && vehiculoForm.controls.sucursal.touched"></i>
+              <select type="text" class="form-control form-control-lg" id="sucursal" formControlName="sucursal">
+                <option *ngFor="let sucursal of sucursalService.sucursales" [value]="sucursal.clave">{{sucursal.clave}}</option>
+              </select>
+          </div>
+          <div class="form-group col-md-6">
+              <label for="status" class="color-text">Status</label>
+              <i class="fa fa-check-circle check" *ngIf="vehiculoForm.controls.status.valid"></i>
+          <i class="fa fa-exclamation-circle uncheck" *ngIf="vehiculoForm.controls.status.invalid && vehiculoForm.controls.status.touched"></i>
+                <select type="text" class="form-control form-control-lg" id="status" formControlName="status">
+                  <option>Activo</option>
+                  <option>Inactivo</option>
+                  <option>En reparación</option>
+                </select>
+            </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="form-group">
+        <button [disabled]="!vehiculoForm.valid" type="submit" class="btn btn-outline-primary btn-lg">Guardar</button>
+        <button (click)="funciones.resetForm(vehiculoForm)" class="btn btn-outline-warning btn-lg pull-right">Limpiar</button>
+        <div class="alert alert-success" *ngIf="mensaje.mensaje" role="alert">
+          {{mensaje.mensaje}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-8 col-sm-8 col-md-8 col-sm-offset-1 col-md-offset 2">
+      <div class="table-responsive">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th  scope="col">Matrícula</th>
+                  <th  scope="col" class="headers">Marca</th>
+                  <th  scope="col"class="headers">Modelo</th>
+                  <th  scope="col"class="headers">Tipo de Vehículo</th>
+                  <th  scope="col"class="headers">Sucursal</th>
+                  <th  scope="col" >Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let vehiculo of vehiculoService.vehiculos">
+                <td  [ngClass]="{'color-activo': vehiculo.status == 'Activo', 'color-inactivo': vehiculo.status=='Inactivo','color-reparacion':vehiculo.status=='En reparación'}">{{vehiculo.matricula}}</td>
+                 <td>{{vehiculo.marca}}</td>
+                 <td>{{vehiculo.modelo}}</td>
+                 <td>{{vehiculo.tipo_vehiculo}}</td>
+                 <td>{{vehiculo.sucursal}}</td>
+                 
+                <td><button class="btn btn-info" (click)="editVehiculo(vehiculo)"><i class="material-icons">edit</i></button></td>
+              </tr> 
+              </tbody>
+            </table>
+          </div>
+  
+  </div>
+  
+</div>
