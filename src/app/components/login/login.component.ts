@@ -6,6 +6,7 @@ import { Funciones } from 'src/app/metodos/funciones';
 import { Login } from 'src/app/models/login.model';
 import { Auth } from 'src/app/models/auth.model';
 import {Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   validarEmail:boolean=true;
   auth:Auth= new Auth();
   login:Login=new Login();
-  constructor(private fb:FormBuilder, private empleadoService:EmpleadoService, private router:Router) { }
+  constructor(private fb:FormBuilder, private empleadoService:EmpleadoService, private router:Router, private cookie:CookieService) { }
 
   ngOnInit() {
     this.iniciarForm();
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     if(this.auth.auth==true){
-      localStorage.setItem('auth',JSON.stringify(this.auth));
+      this.cookie.set('auth',JSON.stringify(this.auth),1)
+      //localStorage.setItem('auth',JSON.stringify(this.auth));
         this.router.navigateByUrl('inicio');
     }
   }

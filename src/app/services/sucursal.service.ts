@@ -26,12 +26,12 @@ export class SucursalService {
 
   getSucursales(){
    
-    return this.http.get(this.URL_API, this.authService.getHeader());
+    return this.http.get(this.URL_API);
     
   }
 
   getSucursal(_id:string){
-    return this.http.get(this.URL_API+"/"+_id, this.authService.getHeader())
+    return this.http.get(this.URL_API+"/"+_id)
   }
   postSucursal(sucursal:Sucursal){
     console.log(sucursal);
@@ -39,6 +39,7 @@ export class SucursalService {
   }
 
   putSucursal(sucursal:Sucursal){
+    console.log(sucursal);
     return this.http.put(this.URL_API+  `/${sucursal._id} `,sucursal,this.authService.getHeader())
   }
 
@@ -48,6 +49,10 @@ export class SucursalService {
 
   validarSucursal(clave:string){
     return this.http.get(this.URL_API+"/sucursal/"+clave);
+  }
+
+  getSucursalByClave(clave:string){
+    return this.http.get(this.URL_API+"/obtener/sucursal/"+clave);
   }
  
 }

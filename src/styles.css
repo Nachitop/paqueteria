@@ -64,3 +64,11 @@ color:#346EA8;
     background-repeat: no-repeat;
     
 }
+
+.invalido{
+    color: #E91908;
+}
+
+.valido{
+    color: #43a948;
+}

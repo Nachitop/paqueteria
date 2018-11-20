@@ -3,10 +3,13 @@ import {Servicio} from './servicio.model';
 import { Resumen } from './resumen.model';
 import { Tarifa } from './tarifa.model';
 import { InformacionEnvio } from './informacionEnvio';
+import { Empleado } from './empleado';
+import { Comentario } from './comentarios';
 export class Cotizacion{
 
     constructor(paquetes:number=0,sobres:number=0,dimensiones:Array<Dimensiones>= new Array<Dimensiones>(),cp_origen:string="",cp_destino:string="",colonia_origen:string="",colonia_destino:string="",opcion:string="",tipo_envio:string="",valor_seguro:number=0,servicios:Servicio[]= [], distancia:number=0,
-    resumencotizacion= new Resumen(),tarifa:Tarifa[]= [], informacionEnvio:InformacionEnvio[]=[],fecha_recoleccion_programada:string=""){
+    resumencotizacion= new Resumen(),tarifa:Tarifa[]= [], informacionEnvio:InformacionEnvio[]=[],fecha_recoleccion_programada:string="",empleado:string="", comentario:Comentario=new Comentario(),status:string="",
+    sucursal:string="",horario_recoleccion:string="",metodo_pago:string=""){
         this.paquetes=paquetes;
         this.sobres=sobres;
         this.dimensiones=dimensiones;
@@ -23,9 +26,12 @@ export class Cotizacion{
         this.tarifa=tarifa;
         this.informacionEnvio=informacionEnvio;
         this.fecha_recoleccion_programada=fecha_recoleccion_programada;
-      
-        
-
+        this.empleado=empleado;
+        this.comentario=comentario
+        this.status=status;
+        this.sucursal=sucursal;
+        this.horario_recoleccion=horario_recoleccion;
+        this.metodo_pago=metodo_pago;
     }
     
     paquetes: number;
@@ -44,6 +50,12 @@ export class Cotizacion{
     tarifa:Tarifa[];
     informacionEnvio:InformacionEnvio[];
     fecha_recoleccion_programada:string;
+    empleado:string;
+    comentario:Comentario;
+    status:string;
+    sucursal:string;
+    horario_recoleccion:string;
+    metodo_pago:string;
    
 
     obtenerDimensiones(){
@@ -54,14 +66,19 @@ export class Cotizacion{
         this.dimensiones.forEach(element => {
             dimensiones.peso=dimensiones.peso+element.peso
             dimensiones.volumen= dimensiones.volumen + (element.alto*element.ancho*element.largo);
-            if(this.opcion==="No"){
+            // if(this.opcion==="No"){
 
-            }else{
-                dimensiones.peso=dimensiones.peso*this.paquetes;
-                dimensiones.volumen=dimensiones.volumen*this.paquetes;
-            }
+            // }else{
+            //     dimensiones.peso=dimensiones.peso*this.paquetes;
+            //     dimensiones.volumen=dimensiones.volumen*this.paquetes;
+            // }
         });
-        
+        if(this.dimensiones.length==1 && this.paquetes>0){
+            dimensiones.peso=dimensiones.peso*this.paquetes;
+            dimensiones.volumen=dimensiones.volumen*this.paquetes;
+        }else{
+           
+        }
         return dimensiones
     }
 

@@ -116,13 +116,17 @@ empleadoCtrl.validarNss= async(req,res)=>{
 empleadoCtrl.login=async(req,res)=>{
    const empleado= await Empleado.findOne({email:req.body.email, status:'Activo'});
         if(empleado!=null || empleado!=undefined){
+
             if(empleado.password===req.body.clave){
                
                 var token = jwt.sign({ _id: empleado._id }, 'my_secret_token', {
                     expiresIn: 86400 // expires in 24 hours
                   });
                   
-                  return res.json({ auth: true, accessToken: token , data:empleado.email});
+                
+                  
+                  return res.json({ auth: true, accessToken: token , data: empleado.email, data2:empleado
+                    });
             }
             else{
                 
@@ -133,6 +137,10 @@ empleadoCtrl.login=async(req,res)=>{
            res.json({mensaje:"Empleado no encontrado"})
         }
   
+}
+
+empleadoCtrl.stillLogged=async(req,res)=>{
+    res.json("Estoy logueado");
 }
 
 

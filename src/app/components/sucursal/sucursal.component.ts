@@ -4,6 +4,8 @@ import { Sucursal } from '../../models/sucursal';
 import {SucursalService} from '../../services/sucursal.service';
 import {Funciones} from '../../metodos/funciones';
 import { Mensaje } from 'src/app/models/mensaje.model';
+import {CpService} from '../../services/cp.service';
+import { CP } from 'src/app/models/cp.model';
 
 
 
@@ -21,7 +23,7 @@ export class SucursalComponent implements OnInit {
   sucursal:Sucursal= new Sucursal();
   validacion:boolean=false;
 
-  constructor(private sf: FormBuilder, private sucursalService:SucursalService) { }
+  constructor(private sf: FormBuilder, private sucursalService:SucursalService, private cpService:CpService) { }
 
   ngOnInit() {
     
@@ -44,33 +46,49 @@ export class SucursalComponent implements OnInit {
       status:[this.sucursal.status,[Validators.required]]
 
     });
+
+    
+    this.onChanges();
   }
 
   
   
 
-
+  onChanges(){
+    this.sucursalForm.get('cp').valueChanges.subscribe(res=>{
+      this.cpService.obtenerCP(res).subscribe(res=>{
+       this.cpService.info_cpOrigen=res as CP
+      });
+    });
+  }
   onSubmit(){
     this.sucursal=this.sucursalForm.value;
-    console.log(this.sucursalForm);
-    console.log(this.sucursal);
-    console.log(this.sucursal._id);
-    
-    if(this.sucursal._id=="" || this.sucursal._id==null){
-      this.sucursalService.postSucursal(this.sucursal).subscribe(res=>{
-        this.mensaje= res as Mensaje;
-        this.getSucursales();
+    this.cpService.obtenerCP(this.sucursalForm.get('cp').value).subscribe(res=>{
+      let cp= res as CP;
+      
+      this.sucursal.municipio=cp.municipio;
+      this.sucursal.estado=cp.estado;
+      console.log(this.sucursal);
+      if(this.sucursal._id=="" || this.sucursal._id==null){
+        console.log(this.sucursal);
+        this.sucursalService.postSucursal(this.sucursal).subscribe(res=>{
+          this.mensaje= res as Mensaje;
+          this.getSucursales();
+          
+        });
         
-      });
-      
-    }
-    else{
-      this.sucursalService.putSucursal(this.sucursal).subscribe(res=>{
-        this.mensaje= res as Mensaje;
-        this.getSucursales();
-      
-      });
-    }
+      }
+      else{
+        console.log(this.sucursal);
+        this.sucursalService.putSucursal(this.sucursal).subscribe(res=>{
+          this.mensaje= res as Mensaje;
+          this.getSucursales();
+        
+        });
+      }
+    });
+    
+  
     
     this.sucursalForm.reset();
     this.ocultarMensaje();
@@ -102,7 +120,7 @@ export class SucursalComponent implements OnInit {
 
    });
 
-   console.log(this.sucursalForm);
+   
    
   }
 

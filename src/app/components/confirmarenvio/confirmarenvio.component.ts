@@ -3,8 +3,15 @@ import {DataserviceService} from '../../services/dataservice.service'
 import { Cotizacion } from 'src/app/models/cotizacion.model';
 import {CpService} from '../../services/cp.service';
 import { CP } from 'src/app/models/cp.model';
+import { Router } from '@angular/router';
+import {EmpleadoService} from '../../services/empleado.service';  
+import { Auth } from 'src/app/models/auth.model';
+import {EnvioService} from '../../services/envio.service';
+import { CookieService } from 'ngx-cookie-service';
+import {SucursalService} from '../../services/sucursal.service';
+import { Sucursal } from 'src/app/models/sucursal';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-declare let paypal: any;
  
 
 @Component({
@@ -21,14 +28,15 @@ export class ConfirmarenvioComponent implements OnInit {
   lugar_origen:any;
   lugar_destino:any;
   dimensiones:any;
-  constructor(private data:DataserviceService, private cpService:CpService) {
+  cpCliente:any;
+  constructor(private data:DataserviceService, private cpService:CpService, private router:Router, private empleadoService:EmpleadoService, private envioService:EnvioService,private cookie:CookieService, private sucursalService:SucursalService) {
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
       this.dimensiones=this.cotizacion.obtenerDimensiones();
       this.obtenerCPOrigen(this.cotizacion.cp_origen);
       this.obtenerCPDestino(this.cotizacion.cp_destino);
-      console.log(this.lugar_destino);
-      console.log(this.lugar_origen);
+      this.logged();
+      
     });
 
     
@@ -54,61 +62,83 @@ export class ConfirmarenvioComponent implements OnInit {
    });
  }
 
+ onSubmit(metodo:any){
+  this.cotizacion.metodo_pago=metodo.value;
 
-
-
-
- addScript: boolean = false;
- paypalLoad: boolean = true;
- 
- finalAmount: number = 1;
-
- paypalConfig = {
-   env: 'sandbox',
-   client: {
-     sandbox: 'AdTWoS3F3ItYJ4aNdDvt3qNUtCvu0sVRG-CEbWAD5qHOFGBioL4s4XwPIUA_ZBzGA48S_lJPfvP-cpID',
-     production: '<your-production-key here>'
-   },
-   commit: true,
-   payment: (data, actions) => {
-     return actions.payment.create({
-       payment: {
-         transactions: [
-           { amount: { total: this.cotizacion.resumencotizacion.total, currency: 'MXN' } }
-         ]
-       }
+   this.cotizacion.status="Documentada";
+   this.cotizacion.comentario.fecha= new Date().toLocaleString();
+   if(this.cotizacion.servicios.find(element=>element.nombre==="Recolección a domicilio")){
+     this.cotizacion.comentario.comentario="Envío registrado, pendiente de recolección";
+     this.cotizacion.comentario.lugar="Domicilio del cliente";
+   }
+   else{
+     this.cotizacion.comentario.comentario="Envío registrado";
+     let cookie;
+     // cookie=this.cookie.get('auth');
+     //if(cookie!=undefined || cookie!="" || cookie!=null){
+       if(this.cookie.get('auth')){
+      cookie=JSON.parse(this.cookie.get('auth'));
+     this.sucursalService.getSucursal(cookie.data2.sucursal).subscribe(res=>{
+        let sucursal=res as Sucursal;
+        this.cotizacion.comentario.lugar=sucursal.nombre;
      });
-   },
-   onAuthorize: (data, actions) => {
-     return actions.payment.execute().then((payment) => {
-       //Do something when payment is successful.
-       console.log(payment);
-     })
-   }
- };
+    }
+    else{
+      this.cotizacion.comentario.comentario="Envío Ocurre";
+      this.sucursalService.getSucursal(this.cotizacion.sucursal).subscribe(res=>{
+        let sucursal=res as Sucursal;
+        this.cotizacion.comentario.lugar=sucursal.nombre;
+     });
 
- ngAfterViewChecked(): void {
-   if (!this.addScript) {
-     this.addPaypalScript().then(() => {
-       paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
-       this.paypalLoad = false;
-     })
+    }
+     
+   }
+
+   
+   console.log(this.cotizacion)
+   
+   //this.cotizacion.comentario.comentario="Envio registrado"
+  this.envioService.hacerEnvio(this.cotizacion).subscribe(res=>{
+    console.log(res);
+  });
+   this.router.navigateByUrl('inicio');
+ }
+ logged(){
+  let auth;
+   //auth=this.cookie.get('auth');
+   //console.log(auth);
+   
+   //if(auth!="" || auth!=null || auth!=undefined){
+     if(this.cookie.get('auth')){
+    auth=JSON.parse(this.cookie.get('auth'));
+     this.cotizacion.empleado=auth.data2._id;
+     this.cotizacion.sucursal=auth.data2.sucursal
+   }
+   else{
+    this.obtenerLugarCliente();
+      
    }
  }
- 
- addPaypalScript() {
-   this.addScript = true;
-   return new Promise((resolve, reject) => {
-     let scripttagElement = document.createElement('script');    
-     scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
-     scripttagElement.onload = resolve;
-     document.body.appendChild(scripttagElement);
-   })
- }
+obtenerLugarCliente(){
+  this.cpService.obtenerCP(this.cotizacion.cp_origen).subscribe(res=>{
+    this.cpCliente= res as CP;
+    console.log(this.cpCliente);
+   this.asignarSucursal()
+    
+  });
+}
+ asignarSucursal(){
+
+  this.sucursalService.getSucursales().subscribe(res=>{
+    let sucursales= res as Sucursal[];
+    var suc;
+    if( suc=sucursales.find(val=>val.municipio===this.cpCliente.municipio && val.estado===this.cpCliente.estado)){
+      console.log(suc);
+      this.cotizacion.sucursal=suc.clave;
+    }
+  });
+  }
 
 
-
-
-
-
+  
 }

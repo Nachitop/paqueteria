@@ -148,7 +148,7 @@
             <i class="fa fa-check-circle check" *ngIf="empleadoForm.controls.colonia.valid"></i>
             <i class="fa fa-exclamation-circle uncheck" *ngIf="empleadoForm.controls.colonia.invalid && empleadoForm.controls.colonia.touched"></i>
               <select class="form-control form-control-lg" formControlName="colonia">
-                  <option>Del parque</option>
+                  <option *ngFor="let colonia of cpService.info_cpOrigen.colonias" [value]="colonia">{{colonia}}</option>
               </select>
        
           </div>
@@ -184,8 +184,7 @@
                     </div>
           </div>
           <br>
-          <pre>Valor del formulario:{{empleadoForm.value | json}}</pre>
-          <pre>status del formulario:{{empleadoForm.status | json}}</pre>
+        
        
     </form>
  

@@ -6,40 +6,45 @@
       <br>
       <div class="form-group">
           <label class="color-text">No.Guia</label>
-          <input class="form-control form-control-lg" >
+          <input class="form-control form-control-lg" [(ngModel)]="guia">
         </div>
        
-        <button class="btn btn-outline-primary btn-block">Rastrear</button>
+        <button class="btn btn-outline-primary btn-block" (click)="rastrearGuia();">Rastrear</button>
         <br>
         <br>
         <hr>
-        <div class="container">
+        <div *ngIf="envio!=undefined && envio!=null;">
+        <div class="container" >
         <div class="row">
           <div class="col-sm-10 col-md-10 col-xs-10">
-              
-                  <div class="form-group">
+              <div class="row">
+                  <div class="form-group col-md-6">
                       <label class="color-text">Guia</label>
-                      <input type="text" class="form-control form-control-lg" disabled>
+                      <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].no_guia" disabled>
                   </div>
-              
+                  <div class="form-group col-md-6">
+                    <label class="color-text">No. Recolección</label>
+                    <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].id_recoleccion" disabled>
+                </div>
+              </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label class="color-text">Origen</label>
-                  <input type="text" class="form-control form-control-lg" disabled>
+                  <input type="text" class="form-control form-control-lg"  [(ngModel)]="origen" disabled>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="color-text">Destino</label>
-                    <input type="text" class="form-control form-control-lg" disabled>
+                    <input type="text" class="form-control form-control-lg" [(ngModel)]="origen" disabled>
                   </div>
                   <div class="form-group col-md-4">
                       <label class="color-text">CP Destino</label>
-                      <input type="text" class="form-control form-control-lg" disabled>
+                      <input type="text" class="form-control form-control-lg"  [(ngModel)]="envio[0].direccion[1].cp" disabled>
                     </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-4">
                     <label class="color-text">Fecha de recolección</label>
-                    <input type="text" class="form-control form-control-lg" disabled>
+                    <input type="text" class="form-control form-control-lg"  [(ngModel)]="envio[0].fecha_recoleccion_programada" disabled>
                   </div>
                   <div class="form-group col-md-4">
                       <label class="color-text">Fecha estimada de entrega</label>
@@ -53,15 +58,15 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                       <label class="color-text">Servicios</label>
-                      <input type="text" class="form-control form-control-lg" disabled>
+                      <textarea class="form-control form-control-lg" disabled [(ngModel)]="servicios" ></textarea>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="color-text">Tipo de envío</label>
-                        <input type="text" class="form-control form-control-lg" disabled>
+                        <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].informacion_envio.tipo_envio" disabled>
                       </div>
                     <div class="form-group col-md-3">
                         <label class="color-text">Status</label>
-                        <input type="text" class="form-control form-control-lg" disabled>
+                        <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].status" disabled>
                       </div>
                      
                   </div>
@@ -69,25 +74,29 @@
           <hr>
           <div class="col-sm-2 col-md-2 col-xs-2">
               <div class="form-group">
-                <label class="color-text">Tipo de paquete</label>
-                <input type="text" class="form-control form-control-lg" disabled>
+                <label class="color-text">Paquetes</label>
+                <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].informacion_envio.paquetes.cantidad" disabled>
               </div>
               <div class="form-group">
-                  <label class="color-text">Cantidad</label>
-                  <input type="text" class="form-control form-control-lg" disabled>
+                  <label class="color-text">Sobres</label>
+                  <input type="text" class="form-control form-control-lg" [(ngModel)]="envio[0].informacion_envio.sobres.cantidad" disabled>
                 </div>
+                <div *ngIf="dimensiones">
                 <div class="form-group">
                     <label class="color-text">Peso</label>
-                    <input type="text" class="form-control form-control-lg" disabled>
+                    <input type="text" class="form-control form-control-lg" [(ngModel)]="dimensiones.peso" disabled>
                   </div>
                   <div class="form-group">
                       <label class="color-text">Volumen</label>
-                      <input type="text" class="form-control form-control-lg" disabled>
+                      <input type="text" class="form-control form-control-lg" [(ngModel)]="dimensiones.volumen" disabled>
+                    </div>
                     </div>
             </div>
         </div>
         </div>
+        
         <hr>
+        <h2 class="color-text">Historial</h2>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -99,11 +108,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                    </td>
-                    <td></td>
-                    <td></td>
+                  <tr *ngFor="let historial of envio[0].comentarios">
+                    <td>{{historial.fecha}}</td>
+                    <td>{{historial.lugar}}</td>
+                    <td>{{historial.comentario}}</td>
                   </tr>
                 
                 </tbody>
@@ -111,8 +119,9 @@
             </div>
         
          
-          
-
+          </div>
+         
+          <div class="invalido" *ngIf="mensaje!=''">{{mensaje}}</div>
     </div>
   </div>
 </div>

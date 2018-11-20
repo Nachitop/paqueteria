@@ -25,8 +25,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EntregaComponent } from './components/entrega/entrega.component';
 import { CancelacionguiaComponent } from './components/cancelacionguia/cancelacionguia.component';
 import { ServicioComponent } from './components/servicio/servicio.component';
-
-
+import { CookieService } from 'ngx-cookie-service';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 const routes: Routes=[
   {path:'', component:InicioComponent},
   {path:'login',component:LoginComponent},
@@ -44,7 +44,8 @@ const routes: Routes=[
   {path:'entrega',component:EntregaComponent},
   {path:'cancelacion-guia',component:CancelacionguiaComponent},
   {path:'servicios',component:ServicioComponent},
-  {path:'**',component:InicioComponent}
+  {path:'**',component:InicioComponent},
+  
 ];
 @NgModule({
   declarations: [
@@ -73,10 +74,10 @@ const routes: Routes=[
   
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(routes),FormsModule ,HttpClientModule, ReactiveFormsModule, 
+    BrowserModule, RouterModule.forRoot(routes),FormsModule ,HttpClientModule, ReactiveFormsModule, NgbModalModule
 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CookieService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

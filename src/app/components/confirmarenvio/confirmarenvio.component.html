@@ -4,7 +4,7 @@
       <h2 class="color-text alinear-texto">Confirmación de envío</h2>
       <br>
       <br>
-      <form class="justify-content-center" >
+      <form class="justify-content-center" (ngSumbit)="onSubmit()">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label class="color-text" for="cp_origen">Origen</label>
@@ -63,9 +63,9 @@
                   <div class="form-group">
                     <h5 class="color-text">Elija método de pago</h5>
                   </div>
-                  <select class="form-control form-control-lg" >
+                  <select class="form-control form-control-lg" #metodo >
                     <option>Efectivo</option>
-                    <option>Paypal</option>
+                    <option>Tarjeta Crédito</option>
                   </select>
                 </div>
 
@@ -94,9 +94,9 @@
             </div>
             
 
-            <div id="paypal-checkout-btn"></div>
+            
             <br>
-            <button type="submit" class="btn btn-outline-primary btn-block btn-lg ">Confirmar</button>
+            <button type="submit" class="btn btn-outline-primary btn-block btn-lg " (click)="onSubmit(metodo)">Confirmar</button>
             <br>
       </form>
     </div>

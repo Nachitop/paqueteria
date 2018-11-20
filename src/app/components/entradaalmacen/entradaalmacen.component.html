@@ -5,19 +5,25 @@
       <br>
       <br>
       <div class="form-row">
-      <div class="form-group col-md-8">
+      <div class="form-group col-md-6">
         <label class="color-text">No.Guia</label>
-        <input type="text" class="form-control form-control-lg">
+        <input type="text" class="form-control form-control-lg"  (keyup)="obtenerGuia(guia)" [(ngModel)]="guia">
       </div>
       <div class="form-group col-md-2">
-          <label class="color-text">Cantidad</label>
-          <input type="text" class="form-control form-control-lg">
+          <label class="color-text">Paquetes</label>
+          <input type="text" class="form-control form-control-lg" disabled [(ngModel)]="paquetes">
+        </div>
+        <div class="form-group col-md-2">
+          <label class="color-text">Sobres</label>
+          <input type="text" class="form-control form-control-lg" disabled  [(ngModel)]="sobres">
         </div>
         <div class="form-group col-md-2">
           <label></label>
-           <button class="btn btn-primary" style="margin-top:30px;">Ingresar</button>
+           <button class="btn btn-primary" style="margin-top:30px;" [disabled]="guia_existe" (click)="ingresar()">Ingresar</button>
           </div>
+         
     </div>
+    <div class="invalido" *ngIf="mensaje!=''">{{mensaje}}</div>
     <br>
     <br>
     <div class="table-responsive">
@@ -25,19 +31,18 @@
             <thead>
               <tr>
                 <th  scope="col">Guia</th>
-                <th  scope="col" class="headers">Cantidad</th>
-                <th  scope="col"class="headers">Fecha</th>
+                <th  scope="col" class="headers">Paquetes</th>
+                <th  scope="col" class="headers">Sobres</th>
                 <th  scope="col"class="headers">Acción</th>
                
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let guia of arrayGuias">
+                <td>{{guia.no_guia}} </td>
+                <td>{{guia.paquetes}} </td>
+                <td>{{guia.sobres}} </td>
+                <td><button (click)="deleteGuia(guia.no_guia)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
               </tr>
             
             </tbody>
@@ -45,8 +50,10 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-outline-primary btn-block">Aceptar</button>
+        <button class="btn btn-outline-primary btn-block" (click)="ingresarAlmacen()">Aceptar</button>
         <br>
+        <br>
+        <div class="valido" *ngIf="mensaje3!=''">{{mensaje3}}</div>
         <br>
   </div>
 </div>

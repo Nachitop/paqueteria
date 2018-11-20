@@ -8,7 +8,7 @@
       <div class="form-group">
         <label for="paquetes" class="color-text">Cantidad de paquetes</label>
 
-        <input type="number" class="form-control form-control-lg" id="paquetes"  [(ngModel)]="cotizacion.paquetes" name="paquetes" required></div>
+        <input type="text" class="form-control form-control-lg" id="paquetes"  [(ngModel)]="cotizacion.paquetes" name="paquetes" required pattern="[0-9]+"> </div>
         <br>
         <div class="form-group">
         <h5 class="color-text">¿Sus paquetes tienen las mismas dimensiones?</h5>
@@ -21,10 +21,10 @@
    <br>
     <div class="form-group">
       <label for="sobres" class="color-text">Cantidad de sobres</label>
-      <input type="number" class="form-control form-control-lg" id="sobres" [(ngModel)]="cotizacion.sobres" name="sobres" required  >
+      <input type="text" class="form-control form-control-lg" id="sobres" [(ngModel)]="cotizacion.sobres" name="sobres" required pattern="[0-9]+" >
     </div>
 
-    <div *ngIf="cotizacion.paquetes>1 && cotizacion.opcion=='No'; else menospaquetes" >
+    <div *ngIf="cotizacion.paquetes>1 && cotizacion.paquetes<=20 && cotizacion.opcion=='No'; else menospaquetes" >
        
         <h2 class="color-text" >Dimensiones</h2>
         <div class="row" *ngFor="let cantidad of counter(cotizacion.paquetes);let i = index">
@@ -35,19 +35,19 @@
         <br>
         <div class="col">
         <label for="peso" class="color-text">Peso</label>
-        <input type="number" class="form-control" id="peso" ngModel name="peso{{i|sumar:1}}" required >
+        <input type="text" class="form-control" id="peso" ngModel name="peso{{i|sumar:1}}" required pattern="[0-9]+([\\.][0-9]*)?">
         </div>
         <div class="col">
         <label for="largo" class="color-text">Largo</label>
-        <input type="number" class="form-control" id="largo" ngModel name="largo{{i|sumar:1}}" required >
+        <input type="text" class="form-control" id="largo" ngModel name="largo{{i|sumar:1}}" required pattern="[0-9]+([\\.][0-9]*)?">
         </div>
         <div class="col">
         <label for="ancho" class="color-text">Ancho</label>
-        <input type="number" class="form-control" id="ancho" ngModel name="ancho{{i|sumar:1}}" required >
+        <input type="text" class="form-control" id="ancho" ngModel name="ancho{{i|sumar:1}}" required pattern="[0-9]+([\\.][0-9]*)?">
         </div>
         <div class="col">
         <label for="alto" class="color-text">Alto</label>
-        <input type="number" class="form-control" id="alto" ngModel name="alto{{i|sumar:1}}" required >
+        <input type="text" class="form-control" id="alto" ngModel name="alto{{i|sumar:1}}" required pattern="[0-9]+([\\.][0-9]*)?">
         </div>
       </div>
     
@@ -61,19 +61,19 @@
          <br>
          <div class="col">
          <label for="peso" class="color-text">Peso</label>
-         <input type="number" class="form-control" id="peso" ngModel name="peso" required >
+         <input type="text" class="form-control" id="peso" ngModel name="peso" required pattern="[0-9]+([\\.][0-9]*)?">
          </div>
          <div class="col" class="color-text">
          <label for="largo" class="color-text">Largo</label>
-         <input type="number" class="form-control" id="largo" ngModel name="largo" required >
+         <input type="text" class="form-control" id="largo" ngModel name="largo" required pattern="[0-9]+([\\.][0-9]*)?" >
          </div>
          <div class="col">
          <label for="ancho" class="color-text">Ancho</label>
-         <input type="number" class="form-control" id="ancho" ngModel name="ancho" required >
+         <input type="text" class="form-control" id="ancho" ngModel name="ancho" required pattern="[0-9]+([\\.][0-9]*)?">
          </div>
          <div class="col">
          <label for="alto" class="color-text">Alto</label>
-         <input type="number" class="form-control" id="alto" ngModel name="alto" required >
+         <input type="text" class="form-control" id="alto" ngModel name="alto" required pattern="[0-9]+([\\.][0-9]*)?">
          </div>
         </div>
   </ng-template>
@@ -89,7 +89,7 @@
           <div class="form-group">
             <label for="cp_origen" class="color-text">Origen</label>
             <div class="input-group mb-3">
-            <input type="number" class="form-control form-control-lg" id="cp_origen" [(ngModel)]="cotizacion.cp_origen" name="cp_origen" #cp_origen (keyup)=" obtenerColoniasOrigen(cp_origen)" required >
+            <input type="text" class="form-control form-control-lg" id="cp_origen" [(ngModel)]="cotizacion.cp_origen" name="cp_origen" #cp_origen (keyup)=" obtenerColoniasOrigen(cp_origen)" required pattern="[0-9]{5}">
             <div class="input-group-append">
             <button type="button" class="btn btn-outline-primary"><i class="material-icons">
                 search
@@ -115,7 +115,7 @@
             <div class="form-group">
               <label for="cp_destino" class="color-text">Destino</label>
               <div class="input-group mb-3">
-              <input type="number" class="form-control form-control-lg" id="cp_destino" [(ngModel)]="cotizacion.cp_destino" name="cp_destino"  #cp_destino (keyup)=" obtenerColoniasDestino(cp_destino)" required >
+              <input type="text" class="form-control form-control-lg" id="cp_destino" [(ngModel)]="cotizacion.cp_destino" name="cp_destino"  #cp_destino (keyup)=" obtenerColoniasDestino(cp_destino)" required pattern="[0-9]{5}">
               <div class="input-group-append">
               <button type="button"  class="btn btn-outline-primary"><i class="material-icons">
                   search

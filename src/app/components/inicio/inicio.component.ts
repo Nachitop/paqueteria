@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cookie:CookieService) { }
 
   ngOnInit() {
-    console.log(JSON.parse(localStorage.getItem('auth')));
+    console.log(JSON.parse(this.cookie.get('auth')));
   }
 
 }

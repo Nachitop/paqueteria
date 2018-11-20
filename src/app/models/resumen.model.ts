@@ -20,20 +20,28 @@ export class Resumen{
 
     actualizarTotalServicios(porcentaje:any){
             this.total=this.total+porcentaje;
+            this.subtotal=this.total- (this.total*.16)
+            this.iva=this.total*.16
           
     }
     actualizarTotalServiciosEliminar(porcentaje:any){
         this.total=this.total-porcentaje;
+        this.subtotal=this.total- (this.total*.16)
+        this.iva=this.total*.16
       
 }
 actualizarTotalServiciosSeguro(porcentaje:any){
   
     this.total=this.total+porcentaje;
+    this.subtotal=this.total- (this.total*.16)
+    this.iva=this.total*.16
    
   
 }
 actualizarTotalServiciosSeguroEliminar(seguro:any){
     this.total=this.total-seguro;
+    this.subtotal=this.total- (this.total*.16)
+    this.iva=this.total*.16
   
 }
 

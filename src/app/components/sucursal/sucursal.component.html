@@ -71,7 +71,7 @@
               <i class="fa fa-check-circle check" *ngIf="sucursalForm.controls.colonia.valid" style="color: green;"></i>
                 <i class="fa fa-exclamation-circle uncheck" style="color:red;"*ngIf="sucursalForm.controls.colonia.invalid && sucursalForm.controls.colonia.touched"></i>
                 <select class="form-control form-control-lg"  formControlName="colonia">
-                    <option >Del parque</option>
+                  <option *ngFor="let colonia of cpService.info_cpOrigen.colonias" [value]="colonia">{{colonia}}</option>
                 </select>
              <!-- <input type="text" class="form-control" id="colonia" formControlName="colonia">!-->
               <!--<p class="alert alert-danger" *ngIf="sucursalForm.controls.colonia.invalid && sucursalForm.controls.colonia.touched">Campo colonia obligatorio</p>!-->

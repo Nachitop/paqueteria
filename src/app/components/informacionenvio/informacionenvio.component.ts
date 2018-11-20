@@ -73,6 +73,7 @@ export class InformacionenvioComponent implements OnInit {
     this.cotizacion.informacionEnvio.push(this.destinatario);
     this.data.someDataChanges(this.cotizacion);
     if(this.cotizacion.servicios.find(value=>value.nombre==="Recolección a domicilio")){
+    
     this.router.navigateByUrl("recoleccion");
     }else{
       this.router.navigateByUrl("confirmar-envio");

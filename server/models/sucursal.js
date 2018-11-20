@@ -15,7 +15,11 @@ const SucursalSchema=new Schema({
 
     telefono:{type:String,required:true},
     encargado:{type:String,required:true},
-    status:{type:String, required:true}
+    status:{type:String, required:true},
+    
+        municipio:{type:String},
+        estado:{type:String}
+
 });
 
 module.exports=mongoose.model('Sucursal',SucursalSchema);

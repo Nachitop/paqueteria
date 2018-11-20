@@ -6,12 +6,17 @@ sucursalCtrl.getSucursal=async(req,res)=>{
     res.json(sucursal);
 }
 
+sucursalCtrl.getSucursalByClave=async(req,res)=>{
+    const sucursal=await Sucursal.find({clave:req.params.clave});
+    res.json(sucursal);
+}
+
 sucursalCtrl.getSucursales=async(req,res)=>{
     const sucursales= await Sucursal.find();
     res.json(sucursales);
 }
 sucursalCtrl.createSucursal=async(req,res)=>{
-    
+    console.log(req.body);
     const sucursal= new Sucursal({
         clave:req.body.clave,
         nombre: req.body.nombre,
@@ -23,7 +28,11 @@ sucursalCtrl.createSucursal=async(req,res)=>{
         },
         telefono:req.body.telefono,
         encargado:req.body.encargado,
-        status:req.body.status  
+        status:req.body.status,
+    
+            municipio:req.body.municipio,
+            estado:req.body.estado
+        
      });
     await sucursal.save()
     res.json({
@@ -32,7 +41,7 @@ sucursalCtrl.createSucursal=async(req,res)=>{
 }
 
 sucursalCtrl.editSucursal=async(req,res)=>{
-    
+    console.log(req.body);
     const {_id} = req.params;
     const sucursal={
         clave:req.body.clave,
@@ -46,7 +55,11 @@ sucursalCtrl.editSucursal=async(req,res)=>{
     
     telefono:req.body.telefono,
     encargado:req.body.encargado,
-    status:req.body.status
+    status:req.body.status,
+   
+        municipio:req.body.municipio,
+        estado:req.body.estado
+    
 
     }
    await Sucursal.findByIdAndUpdate(_id,{$set:sucursal},{$new:true})

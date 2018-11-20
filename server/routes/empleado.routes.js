@@ -15,4 +15,5 @@ router.post('/login/',empleado.login);
 router.put('/:_id',auth.verifyToken,auth.isGerente,empleado.editEmpleado);
 router.delete('/:_id',auth.verifyToken,auth.isGerente,empleado.deleteEmpleado);
 
+
 module.exports=router;

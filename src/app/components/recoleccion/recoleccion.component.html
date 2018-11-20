@@ -18,7 +18,7 @@
      <div class="form-group col-md-4">
         <label class="color-text">Horario</label>
         <select class="form-control form-control-lg" formControlName="horario" >
-            <option *ngFor="let horario of horarios" [value]="horario._id">{{horario.desde}}-{{horario.hasta}}</option>
+            <option *ngFor="let horario of horarios" [value]="horario.desde+'-'+horario.hasta">{{horario.desde}}-{{horario.hasta}}</option>
           </select>
      </div>
      <div class="form-group col-md-4">

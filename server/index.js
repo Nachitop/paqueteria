@@ -18,6 +18,7 @@ app.use('/api/tarifa',require('./routes/tarifa.routes'));
 app.use('/api/vehiculo',require('./routes/vehiculo.routes'));
 app.use('/api/servicio',require('./routes/servicio.routes'));
 app.use('/api/horarios',require('./routes/horarios.routes'));
+app.use('/api/envio',require('./routes/envio.routes'));
 
 // startin' server
 app.listen(app.get('port'), ()=>{

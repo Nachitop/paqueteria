@@ -5,29 +5,47 @@
           <br>
           <br>
           <div class="form-row">
-              <div class="form-group col-md-10">
+              <div class="form-group col-md-12">
                 <label class="color-text">No.Guia</label>
-                <input type="text" class="form-control fomr-control-lg">
+                <input type="text" class="form-control fomr-control-lg" [(ngModel)]="guia">
               </div>
-              <div class="form-group col-md-2">
+              <!-- <div class="form-group col-md-2">
                   <label class="color-text">Cantidad</label>
                   <input type="text" class="form-control fomr-control-lg" disabled>
-                </div>
+                </div> -->
               
             </div>
             <br>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label class="color-text">Devolver cantidad</label>
-                  <input type="text" class="form-control fomr-control-lg" disabled>
-                </div>
-              
-                
+              <div class="form-group col-md-12">
+                <label class="color-text">Clave</label>
+                <input type="text" class="form-control fomr-control-lg" [(ngModel)]="clave">
               </div>
-              <br>
-              <button class="btn btn-block btn-outline-primary">Cancelar guia</button>
-              <br>
+            
+              
+            </div>
+            <br>
+            <button class="btn btn-block btn-outline-primary" (click)="cancelarGuia(content)">Cancelar guia</button>
+            <br>
+              </div>
+            
   
         </div>
     </div>
-  </div>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Cancelación de Número de guia</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{mensaje}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cerrar</button>
+      </div>
+    </ng-template>
+
+ 
+ 

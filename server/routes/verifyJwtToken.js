@@ -17,23 +17,43 @@ verifyToken = (req, res, next) => {
 					message: 'Fail to Authentication. Error -> ' + err 
 				});
 		}
-	//	req.userId = decoded.id;
+	
 		next();
 	});
 }
  
 isGerente = (req, res, next) => {
+	
 	let email= req.headers.user;
 	console.log(req.headers.user);
 	
 	Empleado.findOne({email:email})
 		.then(user => {
-			if(user.puesto==="Admin" || user.puesto==="Gerente(a)"){
+			if(user.puesto==="Admin" || user.puesto==="Gerente(a)" || user.puesto==="Recursos Humanos"){
 				next();
 				return;
 			}
 			else{
-				return res.json({mensaje:"Requiere permisos de Gerente(a) o Admin"})
+				return res.json({mensaje:"Requiere permisos de Gerente(a) o Admin o Recursos Humanos"})
+			}
+	
+			
+		});
+}
+
+isAlmacenista = (req, res, next) => {
+	
+	let email= req.headers.user;
+	console.log(req.headers.user);
+	
+	Empleado.findOne({email:email})
+		.then(user => {
+			if(user.puesto==="Almacenista" || user.puesto==="Gerente(a)"){
+				next();
+				return;
+			}
+			else{
+				return res.json({mensaje:"Requiere permisos de Gerente(a) o Almacenista"})
 			}
 	
 			
@@ -66,5 +86,6 @@ const authJwt = {};
 authJwt.verifyToken = verifyToken;
 authJwt.isGerente = isGerente;
 authJwt.isPmOrAdmin = isPmOrAdmin;
+authJwt.isAlmacenista=isAlmacenista;
  
 module.exports = authJwt;

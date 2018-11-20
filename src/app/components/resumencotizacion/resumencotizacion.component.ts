@@ -24,7 +24,8 @@ export class ResumencotizacionComponent implements OnInit {
   cotizacion:Cotizacion= new Cotizacion
   @ViewChild('form') form:NgForm;
   habilitar_seguro:Boolean=true
-  habilitar_servicios:Boolean=true
+  habilitar_servicios:Boolean=true;
+  habilitar_btn:Boolean=true
   seguro:number=0;
   seguro2:number=0;
   servicios:Servicio[]
@@ -135,6 +136,7 @@ cotizar(){
 }
 
 this.habilitar_servicios=false;
+this.habilitar_btn=false;
 
 }
 
@@ -154,6 +156,7 @@ clickCheckBox(e){
     }else{
       this.habilitar_seguro=false
       this.seguro=ser.porcentaje;
+      this.habilitar_btn=true;
     }
   });
   }
@@ -162,7 +165,7 @@ clickCheckBox(e){
     //this.servicios_array.splice(this.servicios_array.indexOf(_id),1);
     this.servicioService.getServicioCotizacion(_id).subscribe(res=>{
       let ser =res as Servicio;
-     let index=this.cotizacion.servicios.findIndex(value=> value._id===ser._id);
+     let index=this.cotizacion.servicios.findIndex(value=> value.nombre===ser._id);
      this.cotizacion.servicios.splice(index,1);
       if(ser.nombre!="Seguro"){
         this.resumen.actualizarTotalServiciosEliminar(ser.porcentaje);
@@ -172,6 +175,7 @@ clickCheckBox(e){
         this.cotizacion.valor_seguro=0;
         this.resumen.actualizarTotalServiciosSeguroEliminar(this.seguro2);
         this.seguro2=0;
+        this.habilitar_btn=false;
       }
        
     });
@@ -182,6 +186,7 @@ clickCheckBox(e){
 obtenerSeguro(){
   this.seguro2= (this.cotizacion.valor_seguro*this.seguro)/1000;
   this.resumen.actualizarTotalServiciosSeguro(this.seguro2);
+  this.habilitar_btn=false;
   
 }
 onFocus(e){

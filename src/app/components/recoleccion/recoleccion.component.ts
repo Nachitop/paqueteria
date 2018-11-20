@@ -78,6 +78,10 @@ export class RecoleccionComponent implements OnInit {
      }
      
     });
+
+    this.form.get('horario').valueChanges.subscribe(val=>{
+      this.cotizacion.horario_recoleccion=val;
+    });
   }
   onSubmit(){
     

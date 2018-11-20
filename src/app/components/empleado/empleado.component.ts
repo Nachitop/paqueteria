@@ -9,6 +9,8 @@ import {Funciones} from '../../metodos/funciones';
 
 import {FormControl,FormGroup,FormBuilder,Validators} from '@angular/forms'
 import { Mensaje } from 'src/app/models/mensaje.model';
+import { CpService } from 'src/app/services/cp.service';
+import { CP } from 'src/app/models/cp.model';
 
 @Component({
   selector: 'app-empleado',
@@ -33,6 +35,11 @@ export class EmpleadoComponent implements OnInit {
   {
 
     nombre:'Conductor(a) local(a)'
+  },
+  {
+    nombre:'Almacenista'
+  },{
+    nombre:'Recursos Humanos'
   }
 ];
  
@@ -40,7 +47,7 @@ export class EmpleadoComponent implements OnInit {
   funciones:Funciones= new Funciones;
   empleadoForm: FormGroup;
   empleado:Empleado=new Empleado();
-  constructor(private sf: FormBuilder,private empleadoService:EmpleadoService, private sucursalService:SucursalService) {
+  constructor(private sf: FormBuilder,private empleadoService:EmpleadoService, private sucursalService:SucursalService, private cpService:CpService) {
   }
 
   ngOnInit() {
@@ -74,11 +81,17 @@ export class EmpleadoComponent implements OnInit {
 
     });
 
- 
+    this.onChanges();
    
   }
 
-
+onChanges(){
+  this.empleadoForm.get('cp').valueChanges.subscribe(res=>{
+    this.cpService.obtenerCP(res).subscribe(res=>{
+     this.cpService.info_cpOrigen=res as CP
+    });
+  });
+}
  
  
   onSubmit(){
