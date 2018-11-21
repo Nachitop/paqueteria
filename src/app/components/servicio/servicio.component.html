@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group">
-            <label class="color-text" for="porcentaje">Porcentaje de cobro</label>
+            <label class="color-text" for="porcentaje">Cobro</label>
             <i class="fa fa-check-circle check" *ngIf="servicioForm.controls.porcentaje.valid" style="color: green;"></i>
             <i class="fa fa-exclamation-circle uncheck" style="color:red; "*ngIf="servicioForm.controls.porcentaje.invalid && servicioForm.controls.porcentaje.touched"></i>
             <input type="number" class="form-control" id="porcentaje" formControlName="porcentaje">
@@ -49,14 +49,14 @@
             <thead>
               <tr>
                 <th scope="col">Servicio</th>
-                <th scope="col">Porcentaje de cobro</th>
+                <th scope="col">cobro</th>
                 <th scope="col">Acción</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let servicio of servicioService.servicios" >
                 <th scope="row" [ngClass]="{'color-activo': servicio.status == 'Activo', 'color-inactivo': servicio.status=='Inactivo'}">{{servicio.nombre}}</th>
-                <td>{{servicio.porcentaje}}</td>
+                <td>${{servicio.porcentaje}}</td>
 
                 <td><button (click)="editServicio(servicio)" class="btn btn-info"><i class="material-icons">edit</i></button></td>
               </tr>

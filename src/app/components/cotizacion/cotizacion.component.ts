@@ -17,12 +17,17 @@ export class CotizacionComponent implements OnInit {
  @ViewChild('cotizacionForm') cotizacionForm:NgForm;
 
   cotizacion:Cotizacion= new Cotizacion();
+  array:any[]=[];
   
  
 
   
   counter(i: number) {
-    return new Array(i);
+   let arr:number[]=[];
+    for(let i=1;i<=this.cotizacion.paquetes;i++){
+      arr.push(i);
+    }
+    return arr;
   }
   constructor(private cpService:CpService,private  router:Router, public data:DataserviceService ) { }
 
@@ -31,7 +36,19 @@ export class CotizacionComponent implements OnInit {
    
   }
 
- 
+ hacerArray(){
+   if(this.cotizacion.opcion==="No"){
+     for(let i=1;i<=this.cotizacion.paquetes;i++){
+       let json:any={num:0};
+       json.num=1;
+      this.array.push(json);
+     }
+   }
+   else{
+     this.array=[];
+   }
+   return this.array;
+ }
    
 
     

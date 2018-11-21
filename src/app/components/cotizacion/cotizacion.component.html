@@ -24,10 +24,10 @@
       <input type="text" class="form-control form-control-lg" id="sobres" [(ngModel)]="cotizacion.sobres" name="sobres" required pattern="[0-9]+" >
     </div>
 
-    <div *ngIf="cotizacion.paquetes>1 && cotizacion.paquetes<=20 && cotizacion.opcion=='No'; else menospaquetes" >
+    <div *ngIf="cotizacion.paquetes>1 && cotizacion.paquetes<=10 && cotizacion.opcion=='No'; else menospaquetes" >
        
         <h2 class="color-text" >Dimensiones</h2>
-        <div class="row" *ngFor="let cantidad of counter(cotizacion.paquetes);let i = index">
+        <div class="row" *ngFor="let cantidad of counter();let i = index">
          <div class="col" >
            <br>
         <h4 class="color-text">Paquete {{i|sumar:1}}</h4>

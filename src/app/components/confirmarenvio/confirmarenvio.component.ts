@@ -10,7 +10,8 @@ import {EnvioService} from '../../services/envio.service';
 import { CookieService } from 'ngx-cookie-service';
 import {SucursalService} from '../../services/sucursal.service';
 import { Sucursal } from 'src/app/models/sucursal';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Envio } from 'src/app/models/envio';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
  
 
@@ -29,7 +30,11 @@ export class ConfirmarenvioComponent implements OnInit {
   lugar_destino:any;
   dimensiones:any;
   cpCliente:any;
-  constructor(private data:DataserviceService, private cpService:CpService, private router:Router, private empleadoService:EmpleadoService, private envioService:EnvioService,private cookie:CookieService, private sucursalService:SucursalService) {
+  envio:Envio;
+  mensaje: string="";
+  mensaje3: string="";
+  mensaje2: string="";
+  constructor(private data:DataserviceService, private cpService:CpService, private router:Router, private empleadoService:EmpleadoService, private envioService:EnvioService,private cookie:CookieService, private sucursalService:SucursalService,private modalService: NgbModal) {
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
       this.dimensiones=this.cotizacion.obtenerDimensiones();
@@ -46,7 +51,9 @@ export class ConfirmarenvioComponent implements OnInit {
   ngOnInit() {
    
   }
-
+  mostrarModal(content){
+    this.modalService.open(content,{centered:true});
+  }
   obtenerCPOrigen(cp:any){
      this.cpService.obtenerCP(cp).subscribe(res=>{
        this.cp= res as CP
@@ -74,20 +81,22 @@ export class ConfirmarenvioComponent implements OnInit {
    else{
      this.cotizacion.comentario.comentario="Envío registrado";
      let cookie;
-     // cookie=this.cookie.get('auth');
-     //if(cookie!=undefined || cookie!="" || cookie!=null){
+    //cuando el cajero registra el envío de un cliente en la caja
        if(this.cookie.get('auth')){
       cookie=JSON.parse(this.cookie.get('auth'));
-     this.sucursalService.getSucursal(cookie.data2.sucursal).subscribe(res=>{
+     this.sucursalService.getSucursalByClave(cookie.data2.sucursal).subscribe(res=>{
         let sucursal=res as Sucursal;
-        this.cotizacion.comentario.lugar=sucursal.nombre;
+        console.log(sucursal);
+        this.cotizacion.comentario.lugar=sucursal[0].nombre;
      });
     }
     else{
       this.cotizacion.comentario.comentario="Envío Ocurre";
-      this.sucursalService.getSucursal(this.cotizacion.sucursal).subscribe(res=>{
+      this.sucursalService.getSucursalByClave(this.cotizacion.sucursal).subscribe(res=>{
         let sucursal=res as Sucursal;
-        this.cotizacion.comentario.lugar=sucursal.nombre;
+        console.log(sucursal);
+        this.cotizacion.comentario.lugar=sucursal[0].nombre;
+        console.log(this.cotizacion.comentario)
      });
 
     }
@@ -99,9 +108,17 @@ export class ConfirmarenvioComponent implements OnInit {
    
    //this.cotizacion.comentario.comentario="Envio registrado"
   this.envioService.hacerEnvio(this.cotizacion).subscribe(res=>{
-    console.log(res);
+   this.envio=res as Envio;
+   if(this.envio!=undefined && this.envio!=null){
+    this.mensaje="No. de guia: " +this.envio.no_guia;
+    if(this.envio.id_recoleccion){
+    this.mensaje3="No. de recolección: "+this.envio.id_recoleccion;}
+   }
+   else{
+     this.mensaje2="Error al registrar el envío";
+   }
   });
-   this.router.navigateByUrl('inicio');
+  
  }
  logged(){
   let auth;
@@ -139,6 +156,9 @@ obtenerLugarCliente(){
   });
   }
 
-
+irAinicio(){
+  window.location.reload();
+  this.router.navigateByUrl('inicio');
+}
   
 }

@@ -34,7 +34,7 @@ isGerente = (req, res, next) => {
 				return;
 			}
 			else{
-				return res.json({mensaje:"Requiere permisos de Gerente(a) o Admin o Recursos Humanos"})
+				return res.json({error:"Requiere permisos de Gerente(a) o Admin o Recursos Humanos"})
 			}
 	
 			
@@ -53,7 +53,26 @@ isAlmacenista = (req, res, next) => {
 				return;
 			}
 			else{
-				return res.json({mensaje:"Requiere permisos de Gerente(a) o Almacenista"})
+				return res.json({error:"Requiere permisos de Gerente(a) o Almacenista"})
+			}
+	
+			
+		});
+}
+
+isCajero = (req, res, next) => {
+	
+	let email= req.headers.user;
+	console.log(req.headers.user);
+	
+	Empleado.findOne({email:email})
+		.then(user => {
+			if(user.puesto==="Admin" || user.puesto==="Gerente(a)" || user.puesto==="Cajero(a)"){
+				next();
+				return;
+			}
+			else{
+				return res.json({error:"Requiere permisos de Gerente(a) o Cajero(a)"})
 			}
 	
 			
@@ -87,5 +106,6 @@ authJwt.verifyToken = verifyToken;
 authJwt.isGerente = isGerente;
 authJwt.isPmOrAdmin = isPmOrAdmin;
 authJwt.isAlmacenista=isAlmacenista;
+authJwt.isCajero=isCajero;
  
 module.exports = authJwt;

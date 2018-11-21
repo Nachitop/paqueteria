@@ -83,8 +83,8 @@
                 </i>
         </button>
           <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink="login">Iniciar Sesión</a>
-            <a class="dropdown-item" href="#">Cerrar Sesión</a>
+            <a class="dropdown-item" routerLink="login" *ngIf="auth==undefined">Iniciar Sesión</a>
+            <a class="dropdown-item" *ngIf="auth" (click)="loggout()">Cerrar Sesión</a>
             <div class="dropdown-divider"></div>
             
 

@@ -64,7 +64,8 @@ export class Cotizacion{
             volumen:0
         }
         this.dimensiones.forEach(element => {
-            dimensiones.peso=dimensiones.peso+element.peso
+            dimensiones.peso=Number(dimensiones.peso)+Number(element.peso)
+            console.log(dimensiones.peso)
             dimensiones.volumen= dimensiones.volumen + (element.alto*element.ancho*element.largo);
             // if(this.opcion==="No"){
 

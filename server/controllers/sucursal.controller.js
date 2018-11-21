@@ -7,7 +7,7 @@ sucursalCtrl.getSucursal=async(req,res)=>{
 }
 
 sucursalCtrl.getSucursalByClave=async(req,res)=>{
-    const sucursal=await Sucursal.find({clave:req.params.clave});
+    const sucursal=await Sucursal.find({clave:req.params.clave, status:'Activa'});
     res.json(sucursal);
 }
 

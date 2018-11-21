@@ -10,5 +10,5 @@ router.get('/sucursal/:clave',sucursal.validarSucursal);
 router.get('/obtener/sucursal/:clave',sucursal.getSucursalByClave);
 router.post('/',auth.verifyToken,auth.isGerente,sucursal.createSucursal);
 router.put('/:_id',auth.verifyToken,auth.isGerente,sucursal.editSucursal);
-router.delete('/:_id',auth.verifyToken,auth.isGerente,sucursal.deleteSucursal)
+router.delete('/:_id',auth.verifyToken,auth.isGerente,sucursal.deleteSucursal);
 module.exports=router;

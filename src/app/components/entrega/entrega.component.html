@@ -5,13 +5,17 @@
         <br>
         <br>
         <div class="form-row">
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-8">
               <label class="color-text">No.Guia</label>
-              <input type="text" class="form-control fomr-control-lg">
+              <input type="text" class="form-control fomr-control-lg" maxlength="19" [(ngModel)]="guia" (keyup)="buscarGuia()">
             </div>
             <div class="form-group col-md-2">
-                <label class="color-text">Cantidad</label>
-                <input type="text" class="form-control fomr-control-lg">
+                <label class="color-text">Paquetes</label>
+                <input type="text" class="form-control fomr-control-lg" [(ngModel)]="paquetes" disabled>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="color-text">Sobres</label>
+                <input type="text" class="form-control fomr-control-lg" [(ngModel)]="sobres" disabled>
               </div>
             
           </div>
@@ -19,15 +23,34 @@
           <div class="form-row">
               <div class="form-group col-md-12">
                 <label class="color-text">Recibe</label>
-                <input type="text" class="form-control fomr-control-lg">
+                <input type="text" class="form-control fomr-control-lg" [(ngModel)]="remitente" disabled>
               </div>
             
               
             </div>
             <br>
-            <button class="btn btn-block btn-outline-primary">Entregar</button>
+            <div class="valido" *ngIf="mensaje!=''">{{mensaje}}</div>
+            <div class="invalido" *ngIf="mensaje2!=''">{{mensaje2}}</div>
+            <br>
+            <button class="btn btn-block btn-outline-primary" [disabled]="guia_existe" (click)="mostrarModal(content)">Entregar</button>
             <br>
 
       </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Entrega de envío</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>¿El nombre del remitente del envío coincide con la credencial de elector del ciudadano?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">No</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click'); entregarGuia(envio);">Sí</button>
+  </div>
+</ng-template>

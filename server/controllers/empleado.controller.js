@@ -1,6 +1,7 @@
 const empleadoCtrl={};
 const Empleado=require('../models/empleado');
 var jwt = require('jsonwebtoken');
+//var ObjectId = require('mongodb').ObjectID;
 
 empleadoCtrl.getEmpleado=async(req,res)=>{
  const empleado= await Empleado.find(req.params._id);

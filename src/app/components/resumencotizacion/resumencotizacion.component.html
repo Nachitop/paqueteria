@@ -24,7 +24,7 @@
                 <div class="form-group">
                   <h5 class="color-text">Tipo de envío</h5>
                 </div>
-                <select class="form-control form-control-lg" name="tipo_envio" id="tipo_envio" [(ngModel)]="cotizacion.tipo_envio" (change)="cotizar()" required>
+                <select class="form-control form-control-lg" name="tipo_envio" id="tipo_envio" [(ngModel)]="cotizacion.tipo_envio" (change)="cotizar(content)" required>
                     <option value="Normal">Normal</option>
                     <option value="Express">Express</option>
                 </select>
@@ -66,7 +66,7 @@
                 <div class="form-group row">
                   <label class="color-text col-sm-6 col-form-label" for="valor_seguro">Valor del envío</label>
                   <div class="col-sm-10">
-                  <input type="text" class="form-control-lg form-control" name="valor_seguro" id="valor_seguro" [(ngModel)]="cotizacion.valor_seguro" [disabled]="habilitar_seguro">
+                  <input type="number" class="form-control-lg form-control" name="valor_seguro" id="valor_seguro" [(ngModel)]="cotizacion.valor_seguro" [disabled]="habilitar_seguro" min="0" max="99999">
                   <br>
                   <button type="button" class="btn btn-success" [disabled]="habilitar_seguro" (click)="obtenerSeguro()">Definir valor envío</button>
                   </div>
@@ -116,3 +116,16 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Resultados del proceso de envío</h4>
+  </div>
+  <div class="modal-body">
+    <p class="invalido">{{mensajeModal}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.close('Close click'); irAinicio();">Aceptar</button>
+    
+  </div>
+</ng-template>

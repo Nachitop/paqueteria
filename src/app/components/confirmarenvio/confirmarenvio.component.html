@@ -96,9 +96,27 @@
 
             
             <br>
-            <button type="submit" class="btn btn-outline-primary btn-block btn-lg " (click)="onSubmit(metodo)">Confirmar</button>
+            <button type="submit" class="btn btn-outline-primary btn-block btn-lg " (click)="onSubmit(metodo); mostrarModal(content);">Confirmar</button>
             <br>
       </form>
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Resultados del proceso de envío</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{mensaje}}</p>
+    <p >{{mensaje3}}</p>
+    <p class="invalido">{{mensaje2}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.close('Close click'); irAinicio();">Aceptar</button>
+    
+  </div>
+</ng-template>

@@ -27,7 +27,7 @@ export class ServicioComponent implements OnInit {
     console.log(this.servicio);
     this.servicioForm=this.fb.group({
       _id:[this.servicio._id],
-      nombre:[this.servicio.nombre,[Validators.required]],
+      nombre:[this.servicio.nombre,[Validators.required,Validators.maxLength(25)]],
       porcentaje:[this.servicio.porcentaje,[Validators.required,Validators.pattern("([0-9][0-9]?)")]],
       status:[this.servicio.status,[Validators.required]],
     });

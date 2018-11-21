@@ -95,8 +95,8 @@ envioCtrl.createEnvio=async(req,res)=>{
     }
     envio.clave=password;
    await  envio.save();
-    console.log(envio);
     res.json(envio);
+    console.log(req.params.comentario);
 }
 
 function generarGuia(sucursal,date){
@@ -169,5 +169,31 @@ envio.comentarios.push(comentario2);
 envio.save();
 res.json({mensaje:"Envíos agregados al almacén con exito"});
 }
+
+envioCtrl.entregaEnvio=async(req,res)=>{
+    
+    const envio= await Envio.findById(req.params._id);
+    if(envio.sucursal===req.params.clave && envio.status==="En Almacén"){
+        let comentario=req.body;
+        let comentario2={};
+        console.log(comentario)
+        comentario2.fecha=comentario.fecha;
+        comentario2.lugar=comentario.lugar;
+        comentario2.comentario=comentario.comentario
+        envio.status="Entregado"
+        envio.comentarios.push(comentario2);
+        envio.save();
+        res.json({mensaje:"Envío entregado con exito!"});
+    }
+    else{
+        res.json({error:"Error del servidor o el envío no se encuentra disponible para la entrega"});
+    }
+    
+   
+    
+    //envio.sucursal=req.params.clave
+    
+    
+    }
 
 module.exports=envioCtrl;

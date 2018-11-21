@@ -63,10 +63,10 @@ export class EmpleadoComponent implements OnInit {
       _id:[this.empleado._id],
       nombre:[this.empleado.nombre,[Validators.required,Validators.maxLength(35)]],
       apellido:[this.empleado.apellido,[Validators.required, Validators.maxLength(35)]],
-      email:[this.empleado.email,[Validators.required,Validators.email]],
-      curp:[this.empleado.curp,[Validators.required, Validators.pattern("[A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\\d")]],
-      rfc:[this.empleado.rfc,[Validators.required, Validators.pattern("[A-Z]{4}([0-9]{2})(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))[0-9A-Z]{3}")]],
-      nss:[this.empleado.nss,[Validators.required, Validators.pattern("[0-9]{11}")]],
+      email:[this.empleado.email,[Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}")]],
+      curp:[this.empleado.curp,[Validators.required,Validators.maxLength(18), Validators.pattern("[A-Z]{4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[A-Z]{3}[0-9A-Z]\\d")]],
+      rfc:[this.empleado.rfc,[Validators.required,Validators.maxLength(13), Validators.pattern("[A-Z]{4}([0-9]{2})(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))[0-9A-Z]{3}")]],
+      nss:[this.empleado.nss,[Validators.required,Validators.maxLength(11), Validators.pattern("[0-9]{11}")]],
       salario:[this.empleado.salario,[Validators.required, Validators.pattern("[0-9]+([\\.][0-9]*)?")]],
       fecha_nac:[this.empleado.fecha_nac,[Validators.required]],
       fecha_contratacion:[this.empleado.fecha_contratacion,[Validators.required]],
@@ -76,7 +76,7 @@ export class EmpleadoComponent implements OnInit {
       num_ext:[this.empleado.direccion.num_ext,[Validators.required,Validators.maxLength(7)]],
       colonia:[this.empleado.direccion.colonia,[Validators.required]],
       cp:[this.empleado.direccion.cp,[Validators.required, Validators.minLength(5), Validators.maxLength(5),Validators.pattern("[0-9]{5}")]],
-      telefono:[this.empleado.telefono,[Validators.required,Validators.pattern("[0-9]{10}")]],
+      telefono:[this.empleado.telefono,[Validators.required,Validators.maxLength(10), Validators.pattern("[0-9]{10}")]],
       status:[this.empleado.status,[Validators.required]]
 
     });

@@ -27,7 +27,10 @@ export class EnvioService {
   }
   
   entradaAlmacen(_id:string,clave:string,comentario:Comentario){
-    console.log(comentario);
     return this.http.post(this.URL_API+"/entrada/almacen/"+_id+"/"+clave,comentario,this.authService.getHeader());
+  };
+
+  entregaEnvio(_id:string,clave:string,comentario:Comentario){
+    return this.http.post(this.URL_API+"/entrega/envio/"+_id+"/"+clave,comentario,this.authService.getHeader());
   };
 }

@@ -40,7 +40,7 @@ export class EntradaalmacenComponent implements OnInit {
     this.envioService.obtenerGuia(this.guia).subscribe(res=>{
       let resp= JSON.stringify(res);
       let resp2=JSON.parse(resp);
-      console.log(resp2);
+      
       if(resp2.mensaje){
         console.log(resp2.mensaje);
         this.mensaje=resp2.mensaje;
@@ -105,7 +105,7 @@ export class EntradaalmacenComponent implements OnInit {
             
             this.sucursalService.getSucursalByClave(this.auth.data2.sucursal).subscribe(res=>{
              sucursal=res as Sucursal;
-             console.log(sucursal);
+           
                let cpp=sucursal[0].direccion.cp;
                this.cpService.obtenerCP(cpp).subscribe(res=>{
                 cp2=res as CP;
@@ -118,7 +118,7 @@ export class EntradaalmacenComponent implements OnInit {
                 else{
                   comentario.comentario="Envío en sucursal";
                 }
-                console.log(comentario)
+                
                 this.envioService.entradaAlmacen(envio[0]._id,sucursal[0].clave,comentario).subscribe(res=>{
                  let resp=JSON.stringify(res);
                  let resp2=JSON.parse(resp);

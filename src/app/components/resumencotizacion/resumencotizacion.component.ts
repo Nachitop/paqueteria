@@ -12,6 +12,7 @@ import {  Distancia } from 'src/app/models/googledistance.model';
 import { TarifaService } from 'src/app/services/tarifa.service';
 import { Tarifa } from 'src/app/models/tarifa.model';
 import { Resumen } from 'src/app/models/resumen.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-resumencotizacion',
@@ -36,7 +37,8 @@ export class ResumencotizacionComponent implements OnInit {
   dimensiones:any;
   servicio2=[];
   servicios_array:string[]=[]
-  constructor(private sf :FormBuilder,private  router:Router, private data:DataserviceService , private servicioService:ServicioService, private http:HttpClient,private tarifaService:TarifaService) { 
+  mensajeModal: string;
+  constructor(private sf :FormBuilder,private  router:Router, private data:DataserviceService , private servicioService:ServicioService, private http:HttpClient,private tarifaService:TarifaService,private modalService: NgbModal) { 
 
     
     
@@ -83,8 +85,9 @@ export class ResumencotizacionComponent implements OnInit {
   
 }
 
-cotizar(){
+cotizar(content){
   let precio=0, precioSobre=0;
+  this.cotizacion.tarifa=[];
   if(this.cotizacion.paquetes>0){
   let cotizacion={peso:0,volumen:0,distancia:0,tipo_paquete:"Caja",tipo_envio:this.cotizacion.tipo_envio};
  
@@ -92,12 +95,14 @@ cotizar(){
  cotizacion.peso=this.dimensiones.peso;
  cotizacion.volumen=this.dimensiones.volumen;
  cotizacion.distancia=this.cotizacion.distancia;
+ console.log(cotizacion);
  this.tarifaService.cotizar(cotizacion).subscribe(res=>{
    this.tarifaCaja=res as Tarifa;
    console.log(this.tarifaCaja);
    if((this.tarifaCaja!=null || this.tarifaCaja!=undefined)){
+    this.cotizacion.tarifa.push(this.tarifaCaja);
      if(this.cotizacion.tipo_envio==="Express"){
-       this.cotizacion.tarifa.push(this.tarifaCaja);
+       
      precio=this.tarifaCaja.precio.express;
      }
      else{
@@ -105,7 +110,10 @@ cotizar(){
      }
    }
    else{
-    console.log("No se ha encontrado tarifa");
+
+    this.mensajeModal="No se ha encontrado tarifa";
+    this.habilitar_btn=true;
+    this.modalService.open(content,{centered:true});
    }
    this.resumen.obtenerResumen(precio+precioSobre);
  });
@@ -187,9 +195,15 @@ obtenerSeguro(){
   this.seguro2= (this.cotizacion.valor_seguro*this.seguro)/1000;
   this.resumen.actualizarTotalServiciosSeguro(this.seguro2);
   this.habilitar_btn=false;
+  this.habilitar_seguro=true;
   
 }
 onFocus(e){
   console.log(e);
+}
+
+irAinicio(){
+  window.location.reload();
+  this.router.navigateByUrl('inicio');
 }
 }

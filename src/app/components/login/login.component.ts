@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     if(this.auth.auth==true){
       this.cookie.set('auth',JSON.stringify(this.auth),1)
-      //localStorage.setItem('auth',JSON.stringify(this.auth));
+      window.location.reload();
         this.router.navigateByUrl('inicio');
     }
   }
@@ -54,13 +54,10 @@ export class LoginComponent implements OnInit {
           this.loginForm.get('clave').valueChanges.subscribe(res=>{
             this.login.clave=res;
             this.empleadoService.login(this.login).subscribe(res=>{
-              console.log(res);
+            
               this.auth=res as Auth;
               
-              console.log(this.auth.auth);
-              console.log(this.auth.accessToken);
-              console.log(this.auth.reason);
-              console.log(this.auth.data);
+             
             });
           });
         }

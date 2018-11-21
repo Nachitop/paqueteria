@@ -1,10 +1,14 @@
 const servicioCtrl={};
 const Servicio=require('../models/servicio');
+var ObjectId = require('mongodb').ObjectID;
 
 servicioCtrl.getServicio=async(req,res)=>{
-    const servicio=await Servicio.findById(req.params._id);
+   
+    const servicio=await Servicio.findById(ObjectId(req.params._id));
     res.json(servicio);
 }
+
+
 servicioCtrl.getServicios=async(req,res)=>{
     const servicios= await Servicio.find();
     res.json(servicios);
