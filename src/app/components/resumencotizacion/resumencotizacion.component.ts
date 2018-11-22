@@ -74,13 +74,18 @@ export class ResumencotizacionComponent implements OnInit {
     await this.http.get(url_api).subscribe(res=>{
       console.log(res);
       googleResult= res as Distancia
+      if(googleResult.rows[0].elements[0].status!="NOT_FOUND"){
       googleResult.rows.forEach(val=>{
         val.elements.forEach(val=>{
           distancia=val.distance.value
           this.cotizacion.distancia= distancia/1000;
          
         });
-      })
+      });
+    }
+    else{
+      this.cotizacion.distancia=1;
+    }
     });
   
 }
@@ -170,7 +175,7 @@ clickCheckBox(e){
   }
   else{
     _id=e.target.id;
-    //this.servicios_array.splice(this.servicios_array.indexOf(_id),1);
+  
     this.servicioService.getServicioCotizacion(_id).subscribe(res=>{
       let ser =res as Servicio;
      let index=this.cotizacion.servicios.findIndex(value=> value.nombre===ser._id);

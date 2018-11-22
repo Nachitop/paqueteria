@@ -47,9 +47,7 @@ export class EntregaComponent implements OnInit {
         }
       });
   }
-  else{
-    this.reseterar();
-  }
+  
 
 }
 

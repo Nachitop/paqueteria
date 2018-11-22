@@ -95,6 +95,7 @@ export class EntradaalmacenComponent implements OnInit {
     let comentario:Comentario= new Comentario();
     let sucursal;
     if(this.auth){
+      console.log("entré")
     if(this.arrayGuias.length>0 && this.auth.data2.puesto==="Almacenista"){
       this.arrayGuias.forEach(value=>{
         this.envioService.obtenerGuiaCompleta(value.no_guia).subscribe(res=>{
@@ -137,6 +138,7 @@ export class EntradaalmacenComponent implements OnInit {
     }
     else{
       this.mensaje2="No tiene permisos para ingresar guias al almacén o el listado está vacío";
+     
       this.ocultarMensaje();
     }
   }else{

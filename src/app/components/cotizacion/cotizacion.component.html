@@ -4,7 +4,7 @@
     <h2 class="color-text alinear-texto">Cotización</h2>
     <br>
     <br>
-    <form class="justify-content-center" #cotizacionForm="ngForm"  (ngSubmit)="onSubmit()">
+    <form class="justify-content-center" #cotizacionForm="ngForm"  (ngSubmit)="onSubmit(content)">
       <div class="form-group">
         <label for="paquetes" class="color-text">Cantidad de paquetes</label>
 
@@ -140,9 +140,26 @@
     </div>
     <br>
     <br>
-    <button [disabled]="!cotizacionForm.valid" type="submit" class="btn btn-outline-primary btn-lg btn-block" >Cotizar</button>
+    <button [disabled]="!cotizacionForm.valid" type="submit" class="btn btn-outline-primary btn-lg btn-block"  >Cotizar</button>
     <br>
   </form>
   </div>
 </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Alerta</h4>
+    <button type="button" class="close" aria-label="Close" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="invalido">{{mensaje}}</p>
+   
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.close('Close click')">Cerrar</button>
+    
+  </div>
+</ng-template>

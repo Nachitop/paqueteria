@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {SucursalService} from '../../services/sucursal.service';
 import { Sucursal } from 'src/app/models/sucursal';
 import { Envio } from 'src/app/models/envio';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
  
 
@@ -34,6 +34,11 @@ export class ConfirmarenvioComponent implements OnInit {
   mensaje: string="";
   mensaje3: string="";
   mensaje2: string="";
+  ngbModalOptions: NgbModalOptions = {
+    backdrop : 'static',
+    keyboard : false,
+    centered:true,
+  };
   constructor(private data:DataserviceService, private cpService:CpService, private router:Router, private empleadoService:EmpleadoService, private envioService:EnvioService,private cookie:CookieService, private sucursalService:SucursalService,private modalService: NgbModal) {
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
@@ -52,7 +57,8 @@ export class ConfirmarenvioComponent implements OnInit {
    
   }
   mostrarModal(content){
-    this.modalService.open(content,{centered:true});
+    
+    this.modalService.open(content,this.ngbModalOptions);
   }
   obtenerCPOrigen(cp:any){
      this.cpService.obtenerCP(cp).subscribe(res=>{

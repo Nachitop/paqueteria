@@ -7,6 +7,7 @@ import { Dimensiones } from '../../models/dimensiones.models';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {DataserviceService} from '../../services/dataservice.service'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cotizacion',
@@ -18,6 +19,7 @@ export class CotizacionComponent implements OnInit {
 
   cotizacion:Cotizacion= new Cotizacion();
   array:any[]=[];
+  mensaje: string;
   
  
 
@@ -29,7 +31,7 @@ export class CotizacionComponent implements OnInit {
     }
     return arr;
   }
-  constructor(private cpService:CpService,private  router:Router, public data:DataserviceService ) { }
+  constructor(private cpService:CpService,private  router:Router, public data:DataserviceService,private modalService: NgbModal ) { }
 
   ngOnInit() {
     
@@ -53,8 +55,16 @@ export class CotizacionComponent implements OnInit {
 
     
 
-  onSubmit(){
-  
+  onSubmit(content){
+  if(this.cotizacion.paquetes==0 && this.cotizacion.sobres==0){
+    this.mensaje="No puedes cotizar un envío, los paquetes o los sobres deben ser mayor a 1";
+    this.modalService.open(content,{centered:true});
+  }else{
+    if(this.cotizacion.cp_origen===this.cotizacion.cp_destino){
+      this.mensaje="No puedes cotizar un envío con los mismos códigos postales, CAMBIELOS POR FAVOR, POR LA SANGRE DE JESUCRISTO PROFEEEE AAAAAHHHH";
+      this.modalService.open(content,{centered:true});
+    }
+    else{
     let peso,alto,largo,ancho;
     if(this.cotizacion.opcion=="No" && this.cotizacion.paquetes>1){
     
@@ -88,6 +98,8 @@ export class CotizacionComponent implements OnInit {
     this.router.navigateByUrl("resumen-cotizacion",{
 
     });
+  }
+  }
   }
 
 
