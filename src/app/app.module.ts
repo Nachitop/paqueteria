@@ -27,6 +27,15 @@ import { CancelacionguiaComponent } from './components/cancelacionguia/cancelaci
 import { ServicioComponent } from './components/servicio/servicio.component';
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CargacamionComponent } from './components/cargacamion/cargacamion.component';
+import { BitacoraviajeComponent } from './components/bitacoraviaje/bitacoraviaje.component';
+import { CargarecoleccionComponent } from './components/cargarecoleccion/cargarecoleccion.component';
+import { EntregasadomicilioComponent } from './components/entregasadomicilio/entregasadomicilio.component';
+import { RecoleccionesadomicilioComponent } from './components/recoleccionesadomicilio/recoleccionesadomicilio.component';
+import { FinalizartareaComponent } from './components/finalizartarea/finalizartarea.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
+
+
 const routes: Routes=[
   {path:'', component:InicioComponent},
   {path:'login',component:LoginComponent},
@@ -44,6 +53,15 @@ const routes: Routes=[
   {path:'entrega',component:EntregaComponent},
   {path:'cancelacion-guia',component:CancelacionguiaComponent},
   {path:'servicios',component:ServicioComponent},
+  {path:'carga-camion',component:CargacamionComponent},
+  {path:'bitacora-viaje',component:BitacoraviajeComponent},
+  {path:'carga-recoleccion',component:CargarecoleccionComponent},
+  {path:'entregas-a-domicilio',component:EntregasadomicilioComponent},
+  {path:'recolecciones-a-domicilio',component:RecoleccionesadomicilioComponent},
+  {path:'finalizar-tarea',component:FinalizartareaComponent},
+  {path:'reportes',component:ReportesComponent},
+  
+  
   {path:'**',component:InicioComponent},
   
 ];
@@ -70,6 +88,13 @@ const routes: Routes=[
     EntregaComponent,
     CancelacionguiaComponent,
     ServicioComponent,
+    CargacamionComponent,
+    BitacoraviajeComponent,
+    CargarecoleccionComponent,
+    EntregasadomicilioComponent,
+    RecoleccionesadomicilioComponent,
+    FinalizartareaComponent,
+    ReportesComponent,
   
   
   ],

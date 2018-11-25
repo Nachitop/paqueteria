@@ -7,7 +7,7 @@
       <div class="form-row">
       <div class="form-group col-md-6">
         <label class="color-text">No.Guia</label>
-        <input type="text" class="form-control form-control-lg"  (keyup)="obtenerGuia(guia)" [(ngModel)]="guia" maxlength="19">
+        <input type="text" class="form-control form-control-lg"  (keyup)="obtenerGuia()" [(ngModel)]="guia" maxlength="19">
       </div>
       <div class="form-group col-md-2">
           <label class="color-text">Paquetes</label>
@@ -19,7 +19,7 @@
         </div>
         <div class="form-group col-md-2">
           <label></label>
-           <button class="btn btn-primary" style="margin-top:30px;" [disabled]="guia_existe" (click)="ingresar()">Ingresar</button>
+           <button class="btn btn-primary" style="margin-top:30px;" [disabled]="habilitar_ingresar" (click)="ingresar()">Ingresar</button>
           </div>
          
     </div>
@@ -38,11 +38,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let guia of arrayGuias">
-                <td>{{guia.no_guia}} </td>
-                <td>{{guia.paquetes}} </td>
-                <td>{{guia.sobres}} </td>
-                <td><button (click)="deleteGuia(guia.no_guia)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
+              <tr *ngFor="let envio of envios_array">
+                <td>{{envio.no_guia}} </td>
+                <td>{{envio.informacion_envio.paquetes.cantidad}} </td>
+                <td>{{envio.informacion_envio.sobres.cantidad}} </td>
+                <td><button (click)="deleteEnvio(envio)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
               </tr>
             
             </tbody>

@@ -78,6 +78,25 @@ isCajero = (req, res, next) => {
 			
 		});
 }
+
+isConductorLocal = (req, res, next) => {
+	
+	let email= req.headers.user;
+	console.log(req.headers.user);
+	
+	Empleado.findOne({email:email})
+		.then(user => {
+			if(user.puesto==="Conductor(a) local"){
+				next();
+				return;
+			}
+			else{
+				return res.json({error:"Requiere permisos de Conductor(a) local"})
+			}
+	
+			
+		});
+}
  
 isPmOrAdmin = (req, res, next) => {
 	
@@ -107,5 +126,6 @@ authJwt.isGerente = isGerente;
 authJwt.isPmOrAdmin = isPmOrAdmin;
 authJwt.isAlmacenista=isAlmacenista;
 authJwt.isCajero=isCajero;
+authJwt.isConductorLocal=isConductorLocal;
  
 module.exports = authJwt;

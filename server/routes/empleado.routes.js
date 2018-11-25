@@ -14,6 +14,9 @@ router.post('/',auth.verifyToken,auth.isGerente,empleado.createEmpleado);
 router.post('/login/',empleado.login);
 router.put('/:_id',auth.verifyToken,auth.isGerente,empleado.editEmpleado);
 router.delete('/:_id',auth.verifyToken,auth.isGerente,empleado.deleteEmpleado);
+router.get('/conductores/locales/:sucursal',auth.verifyToken,auth.verifyToken, empleado.obtenerConductores);
+router.get('/conductores/foraneos/:sucursal',auth.verifyToken,auth.verifyToken, empleado.obtenerConductoresForaneos);
+
 
 
 module.exports=router;

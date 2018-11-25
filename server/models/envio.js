@@ -57,7 +57,21 @@ const EnvioSchema= new Schema({
     empleado:{type:String},
     sucursal:{type:String},
     clave:{type:String},
-    status:{type:String,required:true}
+    status:{type:String,required:true},
+    entrega:{},
+    recoleccion:{},
+    fecha:{type:String},
+    almacen: {
+        entrada:
+        [{
+            fecha:{type:String},
+            sucursal:{type:String}
+                }        ],
+        salida:[{
+            fecha:{type:String},
+            sucursal:{type:String}
+        }]
+    },
 });
 
 module.exports=mongoose.model('Envio',EnvioSchema);

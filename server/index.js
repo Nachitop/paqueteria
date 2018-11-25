@@ -21,6 +21,11 @@ app.use('/api/vehiculo',require('./routes/vehiculo.routes'));
 app.use('/api/servicio',require('./routes/servicio.routes'));
 app.use('/api/horarios',require('./routes/horarios.routes'));
 app.use('/api/envio',require('./routes/envio.routes'));
+app.use('/api/ruta',require('./routes/rutas.routes'));
+app.use('/api/carga',require('./routes/cargacamion.routes'));
+app.use('/api/cargarecoleccion',require('./routes/cargarecoleccion.routes'));
+app.use('/api/bitacora',require('./routes/bitacora.routes'));
+app.use('/api/reportes',require('./routes/reportes.routes'));
 
 // startin' server
 app.listen(app.get('port'), ()=>{

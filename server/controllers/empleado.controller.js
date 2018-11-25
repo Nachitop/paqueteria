@@ -115,7 +115,7 @@ empleadoCtrl.validarNss= async(req,res)=>{
 }
 
 empleadoCtrl.login=async(req,res)=>{
-   const empleado= await Empleado.findOne({email:req.body.email, status:'Activo'});
+   const empleado= await Empleado.findOne({email:req.body.email,status:{$ne:'Inactivo'}});
         if(empleado!=null || empleado!=undefined){
 
             if(empleado.password===req.body.clave){
@@ -144,6 +144,23 @@ empleadoCtrl.stillLogged=async(req,res)=>{
     res.json("Estoy logueado");
 }
 
-
+empleadoCtrl.obtenerConductores=async(req,res)=>{
+    const conductores= await Empleado.find({puesto:"Conductor(a) local",sucursal:req.params.sucursal,status:"Activo"});
+    if(conductores.length){
+    res.json(conductores);
+    }
+    else{
+        res.json(null);
+    }
+}
+empleadoCtrl.obtenerConductoresForaneos=async(req,res)=>{
+    const conductores= await Empleado.find({puesto:"Conductor(a) foráneo(a)",sucursal:req.params.sucursal,status:"Activo"});
+    if(conductores.length){
+    res.json(conductores);
+    }
+    else{
+        res.json(null);
+    }
+}
 
 module.exports=empleadoCtrl;

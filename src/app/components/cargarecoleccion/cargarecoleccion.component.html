@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="row div-sombreado">
+    <div class="col-sm-10 col-md-10 col-xs-10 offset-sm-1">
+      <h2 class="color-text alinear-texto">Carga de Recolección</h2>
+      <br>
+      <br>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="color-text">Conductor</label>
+          <select class="form-control" *ngIf="conductores" required  [(ngModel)]="conductor">
+            <option *ngFor="let conductor of conductores" [value]="conductor._id">{{conductor.nombre}} {{conductor.apellido}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="color-text">Vehículo</label>
+          <select class="form-control" *ngIf="camiones" required [(ngModel)]="vehiculo">
+            <option *ngFor="let camion of camiones" [value]="camion._id">{{camion.matricula}}-{{camion.marca}}-{{camion.modelo}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="color-text">Ruta</label>
+          <select class="form-control" *ngIf="rutas" [(ngModel)]="ruta">
+            <option *ngFor="let ruta of rutas" [value]="ruta._id">{{ruta.descripcion}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="color-text">Horario</label>
+          <select class="form-control" *ngIf="horarios" [(ngModel)]="horario">
+            <option *ngFor="let horario of horarios" [value]="horario._id">{{horario.dia}}, {{horario.desde}}-{{horario.hasta}}</option>
+          </select>
+        </div>
+      </div>
+    <br>
+      <div class="form-row">
+        <button class="btn btn-info" [disabled]="conductor=='' || vehiculo=='' || ruta=='' || horario==''" (click)="obtenerEnvios()" >Buscar guias por recolectar</button>
+   </div>
+      <hr>
+    
+    
+    
+    <div class="invalido" *ngIf="mensaje!=''">{{mensaje}}</div>
+    <br>
+    <br>
+    <h4 class="color-text">Guias por recolectar</h4>
+    <div class="table-responsive make-scrolling">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th  scope="col">Guia</th>
+                <th  scope="col" class="headers">Paquetes</th>
+                <th  scope="col" class="headers">Sobres</th>
+                <th  scope="col" class="headers">Código Postal</th>
+                <th  scope="col"class="headers">Añadir</th>
+               
+               
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let envio of envios">
+                <td>{{envio.no_guia}} </td>
+                <td>{{envio.informacion_envio.paquetes.cantidad}} </td>
+                <td>{{envio.informacion_envio.sobres.cantidad}} </td>
+                <td>{{envio.direccion[0].cp}} </td>
+                <td><button (click)="addEnvio(envio)" class="btn btn-success"><i class="material-icons">add</i></button></td>
+               
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <br>
+        <h4 class="color-text">Guias añadidas</h4>
+        <div class="table-responsive make-scrolling">
+          <table class="table table-bordered">
+              <thead>
+
+                <tr>
+                  <th  scope="col">Guia</th>
+                  <th  scope="col" class="headers">Paquetes</th>
+                  <th  scope="col" class="headers">Sobres</th>
+                  <th  scope="col" class="headers">Código Postal</th>
+                  <th  scope="col"class="headers">Eliminar</th>
+                 
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let envio of envios2">
+                  <td>{{envio.no_guia}} </td>
+                  <td>{{envio.informacion_envio.paquetes.cantidad}} </td>
+                  <td>{{envio.informacion_envio.sobres.cantidad}} </td>
+                  <td>{{envio.direccion[0].cp}} </td>
+                  <td><button (click)="deleteEnvio(envio)" class="btn btn-danger"><i class="material-icons">delete</i></button></td>
+                 
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+          <div class="invalido" *ngIf="mensaje5!=''">{{mensaje5}}</div>
+          <br>
+          <br>
+        <button class="btn btn-outline-primary btn-block" (click)="cargaRecoleccion(); mostrarModal(content);">Aceptar</button>
+        <br>
+        <br>
+        <div class="valido" *ngIf="mensaje3!=''">{{mensaje3}}</div>
+   
+        <br>
+  </div>
+</div>
+
+<ng-template #content let-modal data-backdrop="static" data-keyboard="false">
+  <div class="modal-header">
+    <h4 class="modal-title">Resultados Carga de Recolección</h4>
+    
+  </div>
+  <div class="modal-body">
+    <p class="valido" *ngIf="mensaje4!=''">{{mensaje4}}</p>
+  
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.close('Close click'); refrescar();">Aceptar</button>
+    
+  </div>
+</ng-template>

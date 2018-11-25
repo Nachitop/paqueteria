@@ -26,11 +26,29 @@ export class EnvioService {
     return this.http.get(this.URL_API+"/obtener/guia/completa/"+guia);
   }
   
-  entradaAlmacen(_id:string,clave:string,comentario:Comentario){
-    return this.http.post(this.URL_API+"/entrada/almacen/"+_id+"/"+clave,comentario,this.authService.getHeader());
+  entradaAlmacen(clave:string,guias:any){
+    return this.http.post(this.URL_API+"/entrada/almacen/"+clave,guias,this.authService.getHeader());
   };
 
   entregaEnvio(_id:string,clave:string,comentario:Comentario){
     return this.http.post(this.URL_API+"/entrega/envio/"+_id+"/"+clave,comentario,this.authService.getHeader());
   };
+
+
+  enviosPorRecolectar(clave:string,horario:string){
+    return this.http.get(this.URL_API+"/obtener/envios/recolectar/"+clave+"/"+horario,this.authService.getHeader());
+  }
+  obtenerGuiaCompletaById(_id:any){
+    return this.http.get(this.URL_API+"/obtener/guia/completa/byid/"+_id);
+  }
+  entregaEnvioDomicilio(entrega:any){
+    return this.http.post(this.URL_API+"/entrega/envio/domicilio",entrega,this.authService.getHeader());
+  };
+
+  recoleccionEnvioDomicilio(recoleccion:any){
+    return this.http.post(this.URL_API+"/recoleccion/envio/domicilio",recoleccion,this.authService.getHeader());
+  };
+  
+  
+ 
 }

@@ -1,0 +1,97 @@
+<div class="container">
+  <br>
+  <h2 class="color-text alinear-texto">Entregas a domicilio</h2>
+  <br>
+  <div class="table-responsive make-scrolling" *ngIf="envios.length>0 && dimensiones_envios.length>0">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th   scope="col">Guia</th>
+              <th    scope="col" class="headers">Destinatario</th>
+              <th    scope="col" class="headers">Cp Destino</th>
+              <th    scope="col" class="headers">Domicilio</th>
+              <th   scope="col" class="headers">Paquetes</th>
+              <th   scope="col" class="headers">Sobres</th>
+              <th    scope="col" class="headers">Peso</th>
+              <th   scope="col" class="headers">Volumen</th>
+            
+              
+             
+              <th  style="text-align: center" colspan ="2" scope="col"class="headers">Entregar</th>
+             
+             
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let envio of envios">
+              <td>{{envio.no_guia}} </td>
+              <td>{{envio.direccion[1].nombre}} {{envio.direccion[1].apellido}} </td>
+              <td>{{envio.direccion[1].cp}} </td>
+              <td>{{envio.direccion[1].calle}} {{envio.direccion[1].numE}}, {{envio.direccion[1].colonia}}<p *ngIf="envio.direccion[1].edificio">, {{envio.direccion[1].edificio}} {{envio.direccion[1].numI}}</p> </td>
+              <td>{{envio.informacion_envio.paquetes.cantidad}} </td>
+              <td>{{envio.informacion_envio.sobres.cantidad}} </td>
+              <td>{{obtenerPeso(envio._id)}} kg </td>
+              <td>{{obtenerVolumen(envio._id)}} cm3 </td>
+            
+              <td><button (click)="abrirModal(content); envioSeleccionado(envio)" class="btn btn-success">Sí</button></td>
+              <td><button  (click)="abrirModal(content2); envioSeleccionado(envio)" class="btn btn-danger">No</button></td>
+             
+            </tr>
+          
+          </tbody>
+        </table>
+      </div>
+      <div class="invalido" style="text-align:center" *ngIf="mensaje!=''">{{mensaje}}</div>
+      <div class="valido" style="text-align:center" *ngIf="mensaje2!=''">{{mensaje2}}</div>
+    </div>
+   
+    <ng-template #content let-modal data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+          <h4 class="modal-title">Entrega de envío</h4>
+          
+        </div>
+        <div class="modal-body">
+          <label class="color-text">¿Quién recibe el envío?</label>
+          <select class="form-control" [(ngModel)]="opcion" >
+            <option>Destinatario</option>
+            <option>Otro</option>
+          </select>
+          <br>
+          <div *ngIf="opcion==='Otro';">
+              <label class="color-text">¿Quién recibe?</label>
+              <input class="form-control" [(ngModel)]="recibe">
+          </div>
+         
+          <br>
+          <label class="color-text">Comentario</label>
+          <input class="form-control"  [(ngModel)]="comentario">
+      
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Close click'); ">Cancelar</button>
+          <button type="button" class="btn btn-info" [disabled]="(opcion==='') || (opcion==='Otro' && recibe==='')" (click)="modal.close('Close click'); entregar(1)">Entregar</button>
+          
+        </div>
+      </ng-template>
+
+
+      
+    <ng-template #content2 let-modal data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+          <h4 class="modal-title">Entrega de envío</h4>
+          
+        </div>
+        <div class="modal-body">
+          <h4>¿No se puedo entregar el envío? Escriba las razones del porqué.</h4>
+          <br>
+          <label class="color-text">Comentario</label>
+          <input class="form-control"  [(ngModel)]="comentario2">
+      
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Close click'); ">Cancelar</button>
+          <button type="button" class="btn btn-info" [disabled]="(comentario2==='')" (click)="modal.close('Close click'); entregar(2)">Aceptar</button>
+          
+        </div>
+      </ng-template>

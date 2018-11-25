@@ -26,10 +26,10 @@ export class RastreoComponent implements OnInit {
   }
 
   rastrearGuia(){
-
+    this.servicios="";
     this.envioService.obtenerGuiaCompleta(this.guia).subscribe(res=>{
       this.envio=res as Envio;
-      console.log(this.envio);
+     
       if(this.envio!=undefined && this.envio!=null){
         console.log("entré");
         this.obtenerDimensiones();

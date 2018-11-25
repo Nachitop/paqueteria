@@ -30,11 +30,11 @@ export class EmpleadoComponent implements OnInit {
     nombre:'Cajero(a)',
   },{
 
-    nombre:'Conductor(a) foraneo(a)'
+    nombre:'Conductor(a) foráneo(a)'
   },
   {
 
-    nombre:'Conductor(a) local(a)'
+    nombre:'Conductor(a) local'
   },
   {
     nombre:'Almacenista'

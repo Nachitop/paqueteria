@@ -51,6 +51,12 @@ export class EmpleadoService {
     return this.http.post(this.URL_API+"/login/",login);
   }
 
- 
+  obtenerConductoresLocales(sucursal:string){
+    return this.http.get(this.URL_API+"/conductores/locales/"+sucursal, this.authService.getHeader());
+  }
+
+  obtenerConductoresForeign(sucursal:string){
+    return this.http.get(this.URL_API+"/conductores/foraneos/"+sucursal,this.authService.getHeader())
+  }
 
 }

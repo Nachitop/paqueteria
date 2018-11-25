@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <h2 class="color-text text-center">Reportes</h2>
+  <br>
+  <br>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="fecha_nac" class="color-text">Desde</label>
+     
+      <input type="date" class="form-control form-control-lg" id="fecha_nac" [(ngModel)]="desde" >
+    </div>
+    <div class="form-group col-md-6">
+        <label for="fecha_contratacion" class="color-text">Hasta</label>
+      
+        <input type="date" class="form-control form-control-lg" id="fecha_contratacion" [(ngModel)]="hasta">
+      </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="form-group col-md-3"><button [disabled]="desde==='' || hasta==='' " type="button" class="btn btn-info btn-block btn-lg" (click)="reporte1()">Envíos express y normales</button></div>
+    <div class="form-group col-md-3"><button [disabled]="desde=='' || hasta=='' " type="button" class="btn btn-info btn-block btn-lg" (click)="reporte2()">Envíos cancelados</button></div>
+    <div class="form-group col-md-3"><button [disabled]="desde=='' || hasta=='' " type="button" class="btn btn-info btn-block btn-lg" (click)="reporte3()">Envíos recolectados y entregados</button></div>
+    <div class="form-group col-md-3"><button [disabled]="desde=='' || hasta=='' " type="button" class="btn btn-info btn-block btn-lg">Entradas y salidas de almacén</button></div>
+
+  </div>
+  <br>
+  <br>
+  <BR>
+  <div class="row">
+    
+      <div *ngIf="chart" class="col-md-6">
+    <div  class="canva">
+      <canvas id="canvas" >{{chart}}</canvas>
+
+    </div>
+  
+  </div>
+  
+  <div *ngIf="chart2" class="col-md-6">
+      <div  class="canva">
+          <canvas id="canvas2" >{{chart2}}</canvas>
+    
+        </div>
+      
+    </div>
+  </div>
+</div>

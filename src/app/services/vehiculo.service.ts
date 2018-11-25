@@ -37,4 +37,8 @@ export class VehiculoService {
   validarMatricula(matricula:string){
     return this.http.get(this.URL_API+"/matricula/"+matricula,this.authService.getHeader());
   }
+
+  obtenerVehiculosAlmacen(sucursal:string,vehiculo:string){
+    return this.http.get(this.URL_API+"/obtener/vehiculos/"+sucursal+"/"+vehiculo, this.authService.getHeader());
+  }
 }

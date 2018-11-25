@@ -10,5 +10,6 @@ router.get('/matricula/:matricula',auth.verifyToken,auth.isGerente,vehiculo.vali
 router.post('/',auth.verifyToken,auth.isGerente,vehiculo.createVehiculo);
 router.put('/:_id',auth.verifyToken,auth.isGerente,vehiculo.editVehiculo);
 router.delete('/:_id',auth.verifyToken,auth.isGerente,vehiculo.deleteVehiculo);
+router.get('/obtener/vehiculos/:sucursal/:vehiculo', auth.verifyToken,auth.isAlmacenista,vehiculo.obtenerVehiculosAlmacen)
 
 module.exports=router;

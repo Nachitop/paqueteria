@@ -1,0 +1,106 @@
+<div class="container">
+  <br>
+  <h2 class="color-text alinear-texto">Finalizar tarea</h2>
+  <br>
+  <br>
+  <h3 class="color-text">Carga Camión</h3>
+  <div class="table-responsive make-scrolling">
+      <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th   scope="col">Empleado</th>
+              <th    scope="col" class="headers">Vehiculo</th>
+              <th    scope="col" class="headers">Ruta</th>
+              <th    scope="col" class="headers">Status</th>
+              <th    scope="col" class="headers">Acción</th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cargacamion of cargascamion">
+              <td>{{cargacamion.empleado.nombre}} {{cargacamion.empleado.apellido}} </td>
+              <td>{{cargacamion.vehiculo.matricula}} {{cargacamion.vehiculo.marca}} {{cargacamion.vehiculo.modelo}} </td>
+              <td>{{cargacamion.ruta.descripcion}} </td>
+              <td>{{cargacamion.status}} </td>
+            
+            
+              <td><button  class="btn btn-success" (click)="finalizarCargaCamion(cargacamion._id)">Finalizar tarea</button></td>
+              
+             
+            </tr>
+          
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="invalido" style="text-align:center" *ngIf="mensaje3!=''">{{mensaje3}}</div>
+      <div class="valido" style="text-align:center" *ngIf="mensaje4!=''">{{mensaje4}}</div>
+      <br>
+     
+      <h3 class="color-text">Carga Recolección</h3>
+      <div class="table-responsive make-scrolling">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th   scope="col">Empleado</th>
+                <th    scope="col" class="headers">Vehiculo</th>
+                <th    scope="col" class="headers">Ruta</th>
+                <th    scope="col" class="headers">Status</th>
+                <th    scope="col" class="headers">Acción</th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cargarecoleccion of cargasrecoleccion">
+                <td>{{cargarecoleccion.empleado.nombre}} {{cargarecoleccion.empleado.apellido}} </td>
+                <td>{{cargarecoleccion.vehiculo.matricula}} {{cargarecoleccion.vehiculo.marca}} {{cargarecoleccion.vehiculo.modelo}} </td>
+                <td>{{cargarecoleccion.ruta.descripcion}} </td>
+                <td>{{cargarecoleccion.status}} </td>
+              
+              
+                <td><button  class="btn btn-success" (click)="finalizarCargaRecoleccion(cargarecoleccion._id)">Finalizar tarea</button></td>
+                
+               
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <div class="invalido" style="text-align:center" *ngIf="mensaje5!=''">{{mensaje5}}</div>
+        <div class="valido" style="text-align:center" *ngIf="mensaje6!=''">{{mensaje6}}</div>
+        <br>
+        
+
+        <h3 class="color-text">Bitácora de viaje</h3>
+        <div class="table-responsive make-scrolling">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th   scope="col">Empleado</th>
+                  <th    scope="col" class="headers">Vehiculo</th>
+                  <th    scope="col" class="headers">Ruta</th>
+                  <th    scope="col" class="headers">Status</th>
+                  <th    scope="col" class="headers">Acción</th> 
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bitacora of bitacoras">
+                  <td>{{bitacora.empleado.nombre}} {{bitacora.empleado.apellido}} </td>
+                  <td>{{bitacora.vehiculo.matricula}} {{bitacora.vehiculo.marca}} {{bitacora.vehiculo.modelo}} </td>
+                  <td>{{bitacora.ruta.descripcion}} </td>
+                  <td>{{bitacora.status}} </td>
+                
+                
+                  <td><button  class="btn btn-success">Finalizar tarea</button></td>
+                  
+                 
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+
+      <div class="invalido" style="text-align:center" *ngIf="mensaje!=''">{{mensaje}}</div>
+      <div class="valido" style="text-align:center" *ngIf="mensaje2!=''">{{mensaje2}}</div>
+    </div>
+
+    

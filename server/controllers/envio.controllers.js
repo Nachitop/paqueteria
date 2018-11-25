@@ -1,6 +1,8 @@
 const envioCtrl={};
 const Envio=require('../models/envio');
 const Empleado=require('../models/empleado');
+const Sucursal=require('../models/sucursal');
+const Horario=require('../models/horarios');
 
 envioCtrl.createEnvio=async(req,res)=>{
     console.log(req.body);
@@ -93,6 +95,7 @@ envioCtrl.createEnvio=async(req,res)=>{
         password=password+ calcularRandoms();
         password=password.toString();
     }
+    envio.fecha=new Date().toLocaleString();
     envio.clave=password;
    await  envio.save();
     res.json(envio);
@@ -153,21 +156,59 @@ envioCtrl.obtenerGuiaCompleta=async(req, res)=>{
     }
 }
 
+envioCtrl.obtenerGuiaCompletaById=async(req, res)=>{
+    const envio = await Envio.findById(req.params._id).populate('servicios').populate('tarifa');
+   console.log(envio);
+    if(envio){
+    res.json(envio);
+    }else{
+        res.json(null);
+    }
+}
+
 envioCtrl.entradaAlmacen=async(req,res)=>{
     
-const envio= await Envio.findById(req.params._id)//Envio.findByIdAndUpdate(req.params._id,{$set:{sucursal:req.params.clave, status:"En almacén"}}, {$push:{comentarios:req.body.comentario}} );
+ let envios=req.body;
+ 
+for(let element of envios){
+    const envio=await Envio.findById(element._id);
+  
+    
+    let coment={
+        fecha:"",
+        lugar:"",
+        comentario:"",
+    }
+    coment.fecha=new Date().toLocaleString();
+    const sucursal= await Sucursal.findOne({clave:req.params.clave});
+    coment.lugar=sucursal.nombre;
+   
+    if(envio.status==="En ruta local para entrega"){
+        coment.comentario="No pudo ser entregado"
+    }
+    else{
+        if(envio.status==="Documentada" || envio.status==="Recolectada" || envio.status==="No recolectado" || envio.status==="No recolectada"){
+            coment.comentario="En sucursal";
+        }
+        else{
+            if(envio.status==="En ruta foránea"){
+                coment.comentario="En sucursal destino, pendiente de entrega";
+            }
+        }
+    }
+    let entrada={fecha:"",sucursal:""};
+    entrada.fecha=new Date().toLocaleString();
+    entrada.sucursal=req.params.clave;
+    envio.sucursal=req.params.clave;
+    envio.comentarios.push(coment);
+    envio.almacen.entrada.push(entrada)
+    envio.status="En Almacén";
+   await envio.save()
+};
 
-let comentario=req.body;
-let comentario2={};
-comentario2.fecha=comentario.fecha;
-comentario2.lugar=comentario.lugar;
-comentario2.comentario=comentario.comentario
 
-envio.sucursal=req.params.clave
-envio.status="En Almacén"
-envio.comentarios.push(comentario2);
-envio.save();
-res.json({mensaje:"Envíos agregados al almacén con exito"});
+
+res.json("Envíos agregados al almacén con exito");
 }
 
 envioCtrl.entregaEnvio=async(req,res)=>{
@@ -182,6 +223,11 @@ envioCtrl.entregaEnvio=async(req,res)=>{
         comentario2.comentario=comentario.comentario
         envio.status="Entregado"
         envio.comentarios.push(comentario2);
+        let salida={fecha:"",sucursal:""};
+        salida.fecha=new Date().toLocaleString();
+        salida.sucursal=envio.sucursal;
+        envio.almacen.salida.push(salida);
+        
         envio.save();
         res.json({mensaje:"Envío entregado con exito!"});
     }
@@ -189,11 +235,110 @@ envioCtrl.entregaEnvio=async(req,res)=>{
         res.json({error:"Error del servidor o el envío no se encuentra disponible para la entrega"});
     }
     
-   
-    
-    //envio.sucursal=req.params.clave
-    
     
     }
 
+envioCtrl.ObtenerEnviosPorRecolectar=async(req,res)=>{
+    let sucursal=req.params.clave;
+    const horario2= await Horario.findById(req.params.horario);
+
+    let horario=horario2.desde+="-"+horario2.hasta;
+    console.log(sucursal);
+    console.log(horario);
+    let fecha=new Date().toLocaleDateString().replace("-","/").replace("-","/");
+    var array_fecha=fecha.split("/");
+    fecha=array_fecha[2]+"/"+array_fecha[1]+"/"+array_fecha[0];
+
+    const envios=await Envio.find({fecha_recoleccion_programada:fecha,horario_recoleccion:horario,status:"Documentada",sucursal:sucursal});
+    if(envios.length){
+        res.json(envios)
+    }
+    else{
+        res.json(null);
+    }
+}
+
+envioCtrl.entregaADomicilio=async(req,res)=>{
+    console.log(req.body)
+    const envio=await Envio.findById(req.body._id);
+    let comentario={
+        fecha:"",
+        lugar:"",
+        comentario:""
+
+    }
+    let mensaje;
+    comentario.fecha=req.body.fecha;
+    comentario.lugar="Domicilio del cliente";
+    if(req.body.entregado==true){
+      
+        envio.status="Entregado"
+       
+
+       
+        
+        comentario.comentario="Entregado en domicilio del cliente"
+        mensaje="Envio entregado con exito!";
+        
+       
+    }else{
+        envio.status="No entregado";
+        comentario.comentario="No se pudo entregar";
+        mensaje="Envio no entregado!";
+    }
+    if(req.body.comentario!=""){
+        comentario.comentario=comentario.comentario+", "+req.body.comentario
+        }
+        envio.comentarios.push(comentario);
+        let entrega={empleado:"",recibe:"",fecha:""};
+        entrega.empleado=req.body.empleado;
+        entrega.recibe=req.body.recibe;
+        entrega.fecha=fecha=new Date().toLocaleString();
+        envio.entrega=entrega
+        
+        await envio.save();
+        res.json(mensaje);
+}
+
+envioCtrl.recoleccionADomicilio=async(req,res)=>{
+
+    const envio=await Envio.findById(req.body._id);
+    let comentario={
+        fecha:"",
+        lugar:"",
+        comentario:""
+
+    }
+    let mensaje;
+    comentario.fecha=req.body.fecha;
+    comentario.lugar="Domicilio del cliente";
+    if(req.body.recolectado==true){
+      
+        envio.status="Recolectado"
+       
+
+       
+        
+        comentario.comentario="Recolectado en domicilio del cliente"
+        mensaje="Envio recolectado con exito!";
+        
+       
+    }else{
+        envio.status="No recolectado";
+        comentario.comentario="No se pudo recolectar";
+        mensaje="Envio no recolectado!";
+    }
+    if(req.body.comentario!=""){
+        comentario.comentario=comentario.comentario+", "+req.body.comentario
+        }
+        envio.comentarios.push(comentario);
+        let recoleccion={empleado:"",atiende:"",fecha:""};
+        recoleccion.empleado=req.body.empleado;
+        recoleccion.atiende=req.body.atiende;
+        recoleccion.fecha=fecha=new Date().toLocaleString();
+        envio.recoleccion=recoleccion;
+        
+        await envio.save();
+        res.json(mensaje);
+}
 module.exports=envioCtrl;

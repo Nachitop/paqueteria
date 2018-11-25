@@ -40,4 +40,15 @@ vehiculoCtrl.validarVehiculo=async(req,res)=>{
     res.json(exists);
 }
 
+vehiculoCtrl.obtenerVehiculosAlmacen=async(req,res)=>{
+    
+    const vehiculos= await Vehiculo.find({tipo_vehiculo:req.params.vehiculo, sucursal:req.params.sucursal,status:"Activo"});
+
+    if(vehiculos.length){
+        res.json(vehiculos);
+    }else{
+        res.json(null);
+    }
+}
+
 module.exports=vehiculoCtrl;

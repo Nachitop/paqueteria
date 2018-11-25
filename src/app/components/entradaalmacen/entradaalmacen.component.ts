@@ -15,16 +15,17 @@ import { Comentario } from 'src/app/models/comentarios';
   styleUrls: ['./entradaalmacen.component.css']
 })
 export class EntradaalmacenComponent implements OnInit {
-  guia_existe:boolean=true;
+  
   paquetes:string;
   sobres:string;
   mensaje:string="";
-  guia:string;
-  arrayGuias:any[]=[];
+  guia:string="";
   auth:Auth;
   mensaje2="";
   mensaje3="";
-  
+  envio:Envio;
+  habilitar_ingresar: boolean=true;
+  envios_array:Envio[]=[];
   constructor(private envioService:EnvioService, private cpService:CpService, private cookie:CookieService, private sucursalService:SucursalService) { 
     
     if(this.cookie.get('auth')){
@@ -36,51 +37,51 @@ export class EntradaalmacenComponent implements OnInit {
   }
 
   obtenerGuia(){
-    console.log(this.guia);
-    this.envioService.obtenerGuia(this.guia).subscribe(res=>{
-      let resp= JSON.stringify(res);
-      let resp2=JSON.parse(resp);
+   
+    this.envioService.obtenerGuiaCompleta(this.guia).subscribe(res=>{
+      this.envio=res as Envio;
+      if(this.envio!=null && this.envio!=undefined){
+        console.log(this.envio)
+        console.log(this.auth.data2.sucursal)
+        if((this.envio[0].status==="Documentada" || this.envio[0].status==="En ruta local para entrega") && this.envio[0].sucursal===this.auth.data2.sucursal){
+        this.paquetes=this.envio[0].informacion_envio.paquetes.cantidad;
+        this.sobres=this.envio[0].informacion_envio.sobres.cantidad;
       
-      if(resp2.mensaje){
-        console.log(resp2.mensaje);
-        this.mensaje=resp2.mensaje;
-        this.paquetes="";
-        this.sobres="";
-        this.guia_existe=true;
-        this.ocultarMensaje();
+        this.habilitar_ingresar=false;
+       
+        
+        }
+        else{
+          this.mensaje="Está guia no puede ser ingresada al almacén"
+          this.habilitar_ingresar=true;
+          this.ocultarMensaje();
+        }
       }
       else{
-        this.paquetes=resp2.paquetes;
-        this.sobres=resp2.sobres;
-        this.guia_existe=false;
-        this.mensaje="";
+        this.mensaje="Guia no encontrada";
+        this.habilitar_ingresar=true;
         this.ocultarMensaje();
       }
     });
   }
   ingresar(){
-    let guia={no_guia:"", paquetes:"",sobres:""};
-    guia.paquetes=this.paquetes;
-    guia.sobres=this.sobres;
-    guia.no_guia=this.guia;
-    if(this.arrayGuias.find(value=>value.no_guia==guia.no_guia)){
-      this.mensaje="Esta guia ya esxiste en la lista";
-      this.paquetes="";
-      this.sobres="";
-      this.guia="";
-    }else{
-    this.arrayGuias.push(guia);
-
-    this.paquetes="";
-    this.sobres="";
+    if(this.envios_array.find(value=>value._id===this.envio[0]._id))
+    {
+      this.mensaje="Guia ya agregada!"
+    }
+    else{
+    this.envios_array.push(this.envio[0]);
     this.guia="";
-  }
+    this.paquetes=null;
+    this.sobres=null;
+
+    }
 }
 
-  deleteGuia(no_guia:string){
-    let index=this.arrayGuias.findIndex(value=>value.no_guia==no_guia);
-    this.arrayGuias.splice(index,1);
-  }
+deleteEnvio(envio:Envio){
+  let index= this.envios_array.findIndex(value=>value._id===envio._id);
+  this.envios_array.splice(index,1);
+}
 
   ocultarMensaje(){
     setTimeout(()=>{
@@ -90,59 +91,27 @@ export class EntradaalmacenComponent implements OnInit {
     },2000)
   }
   ingresarAlmacen(){
-    let envio;
-    let cp,cp2;
-    let comentario:Comentario= new Comentario();
-    let sucursal;
-    if(this.auth){
-      console.log("entré")
-    if(this.arrayGuias.length>0 && this.auth.data2.puesto==="Almacenista"){
-      this.arrayGuias.forEach(value=>{
-        this.envioService.obtenerGuiaCompleta(value.no_guia).subscribe(res=>{
-          envio= res as Envio;
-          
-          this.cpService.obtenerCP(envio[0].direccion[1].cp).subscribe(res=>{
-             cp= res as CP;
-            
-            this.sucursalService.getSucursalByClave(this.auth.data2.sucursal).subscribe(res=>{
-             sucursal=res as Sucursal;
-           
-               let cpp=sucursal[0].direccion.cp;
-               this.cpService.obtenerCP(cpp).subscribe(res=>{
-                cp2=res as CP;
-                comentario.fecha= new Date().toLocaleString();
-                comentario.lugar=sucursal[0].nombre;
-                if(cp.municipio==cp2.municipio && cp.estado==cp2.estado){
-                  
-                  comentario.comentario="Envío en sucursal destino, pendiente de entrega"
-                }
-                else{
-                  comentario.comentario="Envío en sucursal";
-                }
-                
-                this.envioService.entradaAlmacen(envio[0]._id,sucursal[0].clave,comentario).subscribe(res=>{
-                 let resp=JSON.stringify(res);
-                 let resp2=JSON.parse(resp);
-                 this.mensaje3=resp2.mensaje;
-                 this.ocultarMensaje();
-                 
-                })
-               
-               });
-            });
-          });
 
+    if(this.envios_array.length>0){
+      if(this.auth.data2.puesto==="Almacenista"){
+      
+        this.envioService.entradaAlmacen(this.auth.data2.sucursal,this.envios_array).subscribe(res=>{
+         this.mensaje3=JSON.stringify(res);
+         this.envios_array=[];
+         this.ocultarMensaje();
         });
-      });
-      this.arrayGuias=[];
+      
+      }
+      else{
+        this.mensaje2="No tiene permisos de almacenista para realizar esta acción!";
+        this.ocultarMensaje();
+      }
     }
     else{
-      this.mensaje2="No tiene permisos para ingresar guias al almacén o el listado está vacío";
-     
+      this.mensaje2="Debe ingresar más de una guia al camión";
       this.ocultarMensaje();
     }
-  }else{
-    this.mensaje="Necesita loguearse como empleado tipo Almacenista";
-  }
+
+
   }
 }
