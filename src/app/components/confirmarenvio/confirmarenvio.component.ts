@@ -23,7 +23,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 export class ConfirmarenvioComponent implements OnInit {
 
 
-
+  auth:Auth=new Auth();
   cotizacion:Cotizacion= new Cotizacion()
   cp:CP= new CP();
   lugar_origen:any;
@@ -40,13 +40,25 @@ export class ConfirmarenvioComponent implements OnInit {
     centered:true,
   };
   constructor(private data:DataserviceService, private cpService:CpService, private router:Router, private empleadoService:EmpleadoService, private envioService:EnvioService,private cookie:CookieService, private sucursalService:SucursalService,private modalService: NgbModal) {
+    if(this.cookie.get('auth')){
+      this.auth=JSON.parse(this.cookie.get('auth'));
+    }
+      else{
+      this.auth=null;
+      }
+      
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
+      if(this.cotizacion==null || this.cotizacion==undefined){
+        window.location.reload();
+        this.router.navigateByUrl('inicio');
+      }
+      else{
       this.dimensiones=this.cotizacion.obtenerDimensiones();
       this.obtenerCPOrigen(this.cotizacion.cp_origen);
       this.obtenerCPDestino(this.cotizacion.cp_destino);
       this.logged();
-      
+      }
     });
 
     
@@ -85,19 +97,22 @@ export class ConfirmarenvioComponent implements OnInit {
      this.cotizacion.comentario.lugar="Domicilio del cliente";
    }
    else{
-     this.cotizacion.comentario.comentario="Envío registrado";
-     let cookie;
+     this.cotizacion.comentario.comentario="Envío ocurre registrado"
     //cuando el cajero registra el envío de un cliente en la caja
-       if(this.cookie.get('auth')){
-      cookie=JSON.parse(this.cookie.get('auth'));
-     this.sucursalService.getSucursalByClave(cookie.data2.sucursal).subscribe(res=>{
+       if(this.auth!=null){
+      
+     this.sucursalService.getSucursalByClave(this.auth.data2.sucursal).subscribe(res=>{
         let sucursal=res as Sucursal;
         console.log(sucursal);
+        console.log(sucursal[0].nombre);
+        console.log(sucursal.nombre);
         this.cotizacion.comentario.lugar=sucursal[0].nombre;
+        console.log(this.cotizacion.comentario)
      });
     }
     else{
-      this.cotizacion.comentario.comentario="Envío Ocurre";
+      //cuando el cliente lo hace desde internet y no elige ningún servicio y tiene que llevarlo el mismo a sucursal
+      this.cotizacion.comentario.comentario="Envío Ocurre registrado";
       this.sucursalService.getSucursalByClave(this.cotizacion.sucursal).subscribe(res=>{
         let sucursal=res as Sucursal;
         console.log(sucursal);
@@ -110,9 +125,7 @@ export class ConfirmarenvioComponent implements OnInit {
    }
 
    
-   console.log(this.cotizacion)
-   
-   //this.cotizacion.comentario.comentario="Envio registrado"
+
   this.envioService.hacerEnvio(this.cotizacion).subscribe(res=>{
    this.envio=res as Envio;
    if(this.envio!=undefined && this.envio!=null){
@@ -127,15 +140,12 @@ export class ConfirmarenvioComponent implements OnInit {
   
  }
  logged(){
-  let auth;
-   //auth=this.cookie.get('auth');
-   //console.log(auth);
-   
-   //if(auth!="" || auth!=null || auth!=undefined){
-     if(this.cookie.get('auth')){
-    auth=JSON.parse(this.cookie.get('auth'));
-     this.cotizacion.empleado=auth.data2._id;
-     this.cotizacion.sucursal=auth.data2.sucursal
+ 
+  
+     if(this.auth!=null){
+    
+     this.cotizacion.empleado=this.auth.data2._id;
+     this.cotizacion.sucursal=this.auth.data2.sucursal
    }
    else{
     this.obtenerLugarCliente();
@@ -156,8 +166,8 @@ obtenerLugarCliente(){
     let sucursales= res as Sucursal[];
     var suc;
     if( suc=sucursales.find(val=>val.municipio===this.cpCliente.municipio && val.estado===this.cpCliente.estado)){
-      console.log(suc);
-      this.cotizacion.sucursal=suc.clave;
+     
+      this.cotizacion.sucursal=suc[0].clave;
     }
   });
   }

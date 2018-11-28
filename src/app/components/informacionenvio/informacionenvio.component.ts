@@ -18,7 +18,10 @@ export class InformacionenvioComponent implements OnInit {
   constructor(private fb:FormBuilder, private router:Router, private data:DataserviceService) {
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
-      console.log(this.cotizacion);
+      if(this.cotizacion==null || this.cotizacion==undefined){
+        window.location.reload();
+        this.router.navigateByUrl('inicio');
+      }
     })
    }
 

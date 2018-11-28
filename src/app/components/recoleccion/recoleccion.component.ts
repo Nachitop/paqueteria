@@ -25,7 +25,11 @@ export class RecoleccionComponent implements OnInit {
   constructor(private fb:FormBuilder, private router:Router, private data:DataserviceService, private horariosService:HorariosService) { 
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion=res as Cotizacion;
-      console.log(this.cotizacion);
+      if(this.cotizacion==null || this.cotizacion==undefined){
+        window.location.reload();
+        this.router.navigateByUrl('inicio');
+      }
+   
     });
 
     //this.dia[0] = "Domingo";
@@ -37,8 +41,7 @@ export class RecoleccionComponent implements OnInit {
     this.dia[6] = "Sábado";
     
     this.n =this.getDia(this.d.getDay());
-   // let index=this.dia.findIndex(element=>element===this.n)
-    //this.dia.splice(index,1);
+
   }
 
   ngOnInit() {

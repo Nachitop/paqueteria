@@ -13,7 +13,7 @@ import { TarifaService } from 'src/app/services/tarifa.service';
 import { Tarifa } from 'src/app/models/tarifa.model';
 import { Resumen } from 'src/app/models/resumen.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-resumencotizacion',
   templateUrl: './resumencotizacion.component.html',
@@ -21,7 +21,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class ResumencotizacionComponent implements OnInit {
- 
   cotizacion:Cotizacion= new Cotizacion
   @ViewChild('form') form:NgForm;
   habilitar_seguro:Boolean=true
@@ -50,7 +49,14 @@ export class ResumencotizacionComponent implements OnInit {
    
     this.data.currentSomeDataChanges.subscribe(res=>{
       this.cotizacion= res 
+      if(this.cotizacion!=null){
+
       this.calcularDistancia();
+      }
+      else{
+        window.location.reload();
+        this.router.navigateByUrl('inicio');
+      }
     });
     
     this.servicioService.getServiciosCotizacion().subscribe(res=>{
@@ -91,6 +97,9 @@ export class ResumencotizacionComponent implements OnInit {
 }
 
 cotizar(content){
+  this.cotizacion.servicios=[];
+  $('.form-check-input').prop('checked', false);
+  this.habilitar_seguro=true;
   let precio=0, precioSobre=0;
   this.cotizacion.tarifa=[];
   if(this.cotizacion.paquetes>0){

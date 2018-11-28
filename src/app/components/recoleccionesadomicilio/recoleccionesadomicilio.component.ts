@@ -57,7 +57,7 @@ export class RecoleccionesadomicilioComponent implements OnInit {
     this.cargacRecoleccionService.obtenerCargaRecoleccion(this.auth.data2._id).subscribe(res=>{
       let cargaRecoleccion:CargaRecoleccion=new CargaRecoleccion;
       cargaRecoleccion=res as CargaRecoleccion;
-      console.log(cargaRecoleccion);
+     
       if(cargaRecoleccion!=null){
         if(cargaRecoleccion.envios.length>0){
         cargaRecoleccion.envios.forEach(envio=>{

@@ -46,6 +46,7 @@ export class ReportesComponent implements OnInit {
 
 
   reporte1(){
+    this.chart2=[{}];
     this.reporService.reporte1(this.auth.data2.sucursal,this.desde,this.hasta).subscribe(res=>{
       let reporte=JSON.stringify(res);
       let reporte1=JSON.parse(reporte);
@@ -119,6 +120,7 @@ export class ReportesComponent implements OnInit {
 
 
     reporte2(){
+      this.chart=[{}];
       this.reporService.reporte2(this.auth.data2.sucursal,this.desde,this.hasta).subscribe(res=>{
         let reporte=JSON.stringify(res);
         let reporte2=JSON.parse(reporte);

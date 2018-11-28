@@ -64,7 +64,7 @@
                     <h5 class="color-text">Elija método de pago</h5>
                   </div>
                   <select class="form-control form-control-lg" #metodo >
-                    <option>Efectivo</option>
+                    <option *ngIf="auth!=null">Efectivo</option>
                     <option>Tarjeta Crédito</option>
                   </select>
                 </div>

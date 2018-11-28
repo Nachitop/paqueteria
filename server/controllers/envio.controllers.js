@@ -13,15 +13,9 @@ envioCtrl.createEnvio=async(req,res)=>{
     var direcciones=[];
     var direccion={};
     var direccion2={};
-  //  if(empleado_email!=undefined || empleado_email!=null || empleado_email!=''){
-   //    empleado2 = await Empleado.findOne({
-   //         email:empleado_email
-    //    });
+
         guia=generarGuia(req.body.sucursal,date);
-    //}
-   // if(req.body) {
-      //  id_recoleccion=generarRecoleccion(date);
-    //}
+ 
     const envio= new Envio({
         no_guia: guia,
         id_recoleccion: id_recoleccion,
