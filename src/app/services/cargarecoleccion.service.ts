@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 export class CargarecoleccionService {
 
   constructor(private http:HttpClient, private authService:AuthService) { }
-  readonly URL_API="http://localhost:3000/api/cargarecoleccion";
+  readonly URL_API="api/cargarecoleccion";
   hacerCargaRecoleccion(carga:any){
     
     return this.http.post(this.URL_API,carga, this.authService.getHeader())

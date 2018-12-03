@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 export class VehiculoService {
  
   constructor(private http:HttpClient, private authService:AuthService) { }
-  readonly URL_API='http://localhost:3000/api/vehiculo'
+  readonly URL_API='api/vehiculo'
   selectedVehiculo:Vehiculo;
   vehiculos:Vehiculo[];
 

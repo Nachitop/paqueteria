@@ -8,7 +8,7 @@ import { Bitacora } from '../models/bitacora.model';
 export class BitacoraviajeService {
 
   constructor(private http:HttpClient, private authService:AuthService) { }
-  readonly URL_API="http://localhost:3000/api/bitacora";
+  readonly URL_API="api/bitacora";
   hacerBitacora(bitacora:Bitacora){
     
     return this.http.post(this.URL_API,bitacora, this.authService.getHeader())

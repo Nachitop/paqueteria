@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ReportesService {
-  readonly URL_API="http://localhost:3000/api/reportes";
+  readonly URL_API="api/reportes";
   constructor(private http: HttpClient, private authService:AuthService) { }
   reporte1(sucursal:string,desde:string,hasta:string){
   

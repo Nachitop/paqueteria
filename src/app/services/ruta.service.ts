@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 export class RutaService {
   auth:Auth
   constructor(private http :HttpClient, private authService:AuthService) { }
-  readonly URL_API="http://localhost:3000/api/ruta";
+  readonly URL_API="api/ruta";
 
   obtenerRutas(tipoRuta:string){
     return this.http.get(this.URL_API+"/"+tipoRuta, this.authService.getHeader());

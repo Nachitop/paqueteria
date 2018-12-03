@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class TarifaService {
 
   constructor(private http:HttpClient,private authService:AuthService) { }
-  readonly URL_API='http://localhost:3000/api/tarifa'
+  readonly URL_API='api/tarifa'
   selectedTarifa:Tarifa;
   tarifas:Tarifa[];
 

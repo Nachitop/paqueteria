@@ -8,7 +8,7 @@ export class HorariosService {
 
   constructor(private http:HttpClient) { }
   horarios:Horarios[];
-  readonly URL_API="http://localhost:3000/api/horarios"
+  readonly URL_API="api/horarios"
   getHorarios(){
     return this.http.get(this.URL_API);
   }

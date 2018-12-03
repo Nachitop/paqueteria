@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 export class CargacamionService {
 
   constructor(private http:HttpClient, private authService:AuthService) { }
-  readonly URL_API="http://localhost:3000/api/carga";
+  readonly URL_API="api/carga";
   hacerCargaCamion(carga:any){
     
     return this.http.post(this.URL_API,carga, this.authService.getHeader())

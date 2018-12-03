@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 export class EnvioService {
 
   constructor(private http:HttpClient, private authService:AuthService) { }
-  readonly URL_API="http://localhost:3000/api/envio";
+  readonly URL_API="api/envio";
   hacerEnvio(cotizacion:Cotizacion){
     return this.http.post(this.URL_API,cotizacion);
   }

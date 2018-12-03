@@ -11,7 +11,7 @@ export class ServicioService {
  
   selectedServicio:Servicio;
   servicios:Servicio[];
-  readonly URL_API='http://localhost:3000/api/servicio'
+  readonly URL_API='api/servicio'
   constructor(private http:HttpClient,private authService:AuthService) { }
 
   getServicio(_id:string){

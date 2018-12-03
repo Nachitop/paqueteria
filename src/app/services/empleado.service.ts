@@ -13,7 +13,7 @@ export class EmpleadoService {
 
   selectedEmpleado:Empleado= new Empleado();
   empleados:Empleado[];
-  readonly URL_API="http://localhost:3000/api/empleado"
+  readonly URL_API="api/empleado"
 
   getEmpleado(_id:string){
     return this.http.get(this.URL_API+`/${_id} `,this.authService.getHeader());

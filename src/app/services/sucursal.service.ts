@@ -20,7 +20,7 @@ export class SucursalService {
   
   selectedSucursal: Sucursal= new Sucursal();
   sucursales: Sucursal [];
-  readonly URL_API='http://localhost:3000/api/sucursal'
+  readonly URL_API='api/sucursal'
   
 
 
