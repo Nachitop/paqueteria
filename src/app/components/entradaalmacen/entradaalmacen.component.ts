@@ -41,9 +41,8 @@ export class EntradaalmacenComponent implements OnInit {
     this.envioService.obtenerGuiaCompleta(this.guia).subscribe(res=>{
       this.envio=res as Envio;
       if(this.envio!=null && this.envio!=undefined){
-        console.log(this.envio)
-        console.log(this.auth.data2.sucursal)
-        if((this.envio[0].status==="Documentada" || this.envio[0].status==="En ruta local para entrega") && this.envio[0].sucursal===this.auth.data2.sucursal){
+     
+        if((this.envio[0].status==="Documentada" || this.envio[0].status==="En ruta local para entrega" || this.envio[0].status==="Recolectado" || this.envio[0].status==="En ruta foránea") && this.envio[0].sucursal===this.auth.data2.sucursal){
         this.paquetes=this.envio[0].informacion_envio.paquetes.cantidad;
         this.sobres=this.envio[0].informacion_envio.sobres.cantidad;
       

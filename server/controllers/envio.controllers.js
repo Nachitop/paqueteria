@@ -187,7 +187,7 @@ for(let element of envios){
         coment.comentario="No pudo ser entregado"
     }
     else{
-        if(envio.status==="Documentada" || envio.status==="Recolectada" || envio.status==="No recolectado" || envio.status==="No recolectada"){
+        if(envio.status==="Documentada" || envio.status==="Recolectado" || envio.status==="No recolectado" || envio.status==="No recolectada"){
             coment.comentario="En sucursal";
         }
         else{
@@ -214,6 +214,8 @@ res.json("Envíos agregados al almacén con exito");
 envioCtrl.entregaEnvio=async(req,res)=>{
     
     const envio= await Envio.findById(req.params._id);
+    console.log(envio.sucursal);
+    console.log(req.params.clave)
     if(envio.sucursal===req.params.clave && envio.status==="En Almacén"){
         let comentario=req.body;
         let comentario2={};

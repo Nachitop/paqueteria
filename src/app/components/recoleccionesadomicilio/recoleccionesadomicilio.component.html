@@ -70,7 +70,7 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-danger" (click)="modal.close('Close click'); ">Cancelar</button>
-            <button type="button" class="btn btn-info" [disabled]="(opcion==='') || (opcion==='Otro' && atiende==='')" (click)="modal.close('Close click'); recolectar(1)">Entregar</button>
+            <button type="button" class="btn btn-info" [disabled]="(opcion==='') || (opcion==='Otro' && atiende==='')" (click)="modal.close('Close click'); recolectar(1)">Recoger</button>
             
           </div>
         </ng-template>

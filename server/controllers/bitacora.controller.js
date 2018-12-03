@@ -24,6 +24,11 @@ bitacoraCtrl.hacerBitacora=async(req,res)=>{
     for(let envio of bitacoraBody.envios){
        
         const envio2= await Envio.findById(envio);
+        let comentario={fecha:"",lugar:"",comentario:""};
+        comentario.fecha=new Date().toLocaleString();
+        comentario.lugar=bitacoraBody.ruta;
+        comentario.comentario="En ruta foránea hacia la sucursal destino";
+        envio2.comentarios.push(comentario);
         let salida={fecha:"",sucursal:""};
         salida.fecha=new Date().toLocaleString();
         salida.sucursal=bitacoraBody.sucursal_origen;
