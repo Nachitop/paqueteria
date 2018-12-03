@@ -6,12 +6,12 @@ const bodyParser = require('body-parser');
 const {mongoose}=require('./database');
 //settings
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT);
 //middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 //app.use(express.json());
-app.use(cors({origin:'http://localhost:4200'}));
+//app.use(cors({origin:'http://localhost:4200'}));
 
 //routes
 app.use('/api/sucursal',require('./routes/sucursal.routes'));
